@@ -17,3 +17,4 @@
 
 # Ignore CodeClimate coverage log file.
 /coverage/.resultset.json
+./idea
