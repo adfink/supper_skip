@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
 
+  root 'home#index'
+
+  resources :restaurants, only: [:index, :new, :create]
+
   resources :items
 
-	resources :orders
+  resources :orders
 
   resources :categories
 
@@ -30,7 +34,6 @@ Rails.application.routes.draw do
   post   'login',  to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
-  root 'home#index'
 
   resources :home
 
