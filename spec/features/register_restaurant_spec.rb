@@ -23,8 +23,9 @@ describe 'normal user', type: :feature do
 
     click_button('Create Restaurant')
 
-    # expect user_restaurant_path(restaurant), current_path
+    expect(current_path).to eq('/restaurants/restaurant-name')
     expect(page).to have_content("Restaurant Name")
-
   end
+
+
 end

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :restaurants, only: [:index, :new, :create]
+  resources :restaurants, only: [:index, :new, :create, :show]
 
   resources :items
 

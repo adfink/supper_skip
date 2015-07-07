@@ -4,8 +4,14 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new
   end
 
+  def show
+    @restaurant = Restaurant.find_by(display_name: params[:id])
+  end
+
   def create
     restaurant = Restaurant.new(restaurant_params)
+    restaurant.sanitize_display_name
+
     if restaurant.save
       redirect_to restaurant
     else
