@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
 
 
   validates :full_name, presence: true
-  validates_format_of :email_address, :with => /.+@.+\..+/i
+  validates :email_address, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i }
+
   validates :email_address, uniqueness: true
 
   # attr_accessible :name , :email

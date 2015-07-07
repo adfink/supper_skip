@@ -14,6 +14,7 @@ end
 
 group :development do
   gem 'spring'
+  gem 'brakeman'
   gem "spring-commands-rspec"
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -26,7 +27,7 @@ gem 'autoprefixer-rails'
 gem 'sass-rails', '~> 4.0.3'
 gem 'pry'
 gem "paperclip", "~> 4.2"
-gem 'rails', '4.1.6'
+gem 'rails', '4.1.11'
 gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
