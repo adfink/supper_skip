@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
 
+  layout 'special_layout'
   def new
     @restaurant = Restaurant.new
   end

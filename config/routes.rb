@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :categories
   end
 
+
   resources :addresses
 
   get 'code', to: 'welcome#code'
@@ -26,7 +27,9 @@ Rails.application.routes.draw do
     get 'dashboard',        to: 'dashboard#show'
   end
 
-  resources :users
+  resources :users do
+    resources :orders, only: [:index, :show]
+  end
 
   get    'login',  to: 'sessions#new'
   post   'login',  to: 'sessions#create'
