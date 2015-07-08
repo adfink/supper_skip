@@ -2,13 +2,11 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :restaurants, only: [:index, :new, :create, :show]
-
-  resources :items
-
-  resources :orders
-
-  resources :categories
+  resources :restaurants, only: [:index, :new, :create, :show] do
+    resources :items
+    resources :orders
+    resources :categories
+  end
 
   resources :addresses
 

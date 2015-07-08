@@ -40,7 +40,6 @@ describe 'normal user', type: :feature do
     item_b = restaurant_b.items.create(name: 'Lasagna', description: 'Definitely not made of plasticasdfasdfasdfa', price: 25)
 
     visit restaurant_path(restaurant_b)
-    save_and_open_page
     within('li.item') do
       assert page.has_content?(item_b.name)
       refute page.has_content?(item_a.name)
@@ -54,7 +53,7 @@ describe 'normal user', type: :feature do
 
     click_on(item_a.name)
 
-    expect(current_path).to eq("/restaurants/edible-objects/#{item_a.id}")
+    expect(current_path).to eq("/restaurants/edible-objects/items/#{item_a.id}")
     expect(page).to have_content(item_a.description)
   end
 end
