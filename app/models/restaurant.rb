@@ -1,5 +1,10 @@
 class Restaurant < ActiveRecord::Base
+  validates :name, uniqueness: true,
+                   presence: true
+  validates :display_name, uniqueness: true
+
   belongs_to :user
+  has_many :items
 
 
   def to_param
