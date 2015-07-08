@@ -1,6 +1,7 @@
 class Restaurant < ActiveRecord::Base
   belongs_to :user
 
+
   def to_param
     format_display_name
   end
