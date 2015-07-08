@@ -11,6 +11,7 @@ class RestaurantsController < ApplicationController
   def create
     restaurant = Restaurant.new(restaurant_params)
     restaurant.sanitize_display_name
+    restaurant.user_id = session[:user_id]
 
     if restaurant.save
       redirect_to restaurant
@@ -21,6 +22,7 @@ class RestaurantsController < ApplicationController
   end
 
   private
+
   def restaurant_params
     params.require(:restaurant).permit(:name, :description, :display_name)
   end
