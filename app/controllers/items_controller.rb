@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    # binding.pry
+    binding.pry
     item = Item.new(item_params)
     item.restaurant_id = @restaurant.id
 
@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
 
   private
   def item_params
-    binding.pry
+    # binding.pry
     params.require(:item).permit(:name, :description, :price)
   end
 
