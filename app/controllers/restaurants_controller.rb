@@ -40,8 +40,6 @@ class RestaurantsController < ApplicationController
     params.require(:restaurant).permit(:name, :description, :display_name)
   end
 
-  private
-
   def auth
     this_dude = Permissions.new(current_user)
 
