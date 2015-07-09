@@ -22,10 +22,10 @@ Rails.application.routes.draw do
   get 'remove_item',      to: 'carts#remove_item',    as: 'remove_item'
   put 'update_quantity',  to: 'carts#update_quantity',as: 'update_quantity'
 
-  namespace :admin do
-    resources :items, :categories, :orders, :order_items
-    get 'dashboard',        to: 'dashboard#show'
-  end
+  # namespace :admin do
+  #   resources :items, :categories, :orders, :order_items
+  #   get 'dashboard',        to: 'dashboard#show'
+  # end
 
   resources :users do
     resources :orders, only: [:index, :show, :new, :create]
