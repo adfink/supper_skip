@@ -1,10 +1,14 @@
 class RestaurantsController < ApplicationController
-  before_action :load_restaurant, only: [:edit]
+  before_action :load_restaurant, only: [:edit, :update]
   before_action :auth, only: [:edit]
   before_action :require_login, only: [:edit]
 
-
   layout 'special_layout'
+
+  def index
+    @restaurants = Restaurant.all
+  end
+
   def new
     @restaurant = Restaurant.new
   end
@@ -27,11 +31,16 @@ class RestaurantsController < ApplicationController
     end
   end
 
-  def index
-    @restaurants = Restaurant.all
+  def edit
   end
 
-  def edit
+  def update
+    if @restaurant.update(restaurant_params)
+      redirect_to @restaurant, notice: "Restaurant Updated!"
+    else
+      flash.now[:errors] = @restaurant.errors.full_messages.join(", ")
+      render :edit
+    end
   end
 
   private
