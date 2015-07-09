@@ -15,9 +15,9 @@
   </div>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li><%= image_tag('MountainTop Cafe-logo.png', :alt => 'logo', :width => '269', :height=> '97') %></li>
+      <li>EATSY</li>
       <li class="active"><%= link_to "Home", root_path %></li>
-      <li class="active"><%= link_to "Menu", categories_path %></li>
+      <li class="active"><%= link_to "Restaurants", restaurants_path %></li>
       <li class="active"><%= link_to "About", about_path %></li>
       <li class="active"><%= link_to "News and Blog", gift_cards_path %></li>
       <li class="active"><%= link_to "Contact Us", contact_us_path %></li>
@@ -54,13 +54,12 @@
             <%= "0 items" %>
 
           <% end %>
-          <%= link_to 'My Orders', orders_path if current_user %>
+          <%= link_to 'My Orders', user_orders_path(current_user) if current_user %>
         <% end %>
-        <p><%= link_to 'Admin Dashboard', admin_dashboard_path if can? :create, User %> </p>
 
 
       </ul>
-    </nav>
     </div>
    </div>
   </div>
+</nav>

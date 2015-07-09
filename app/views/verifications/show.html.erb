@@ -5,7 +5,7 @@
 <div id="confirmation-options">
 <h2>What would you like to do next?</h2>
 </br>
-<%= form_tag categories_path, method: :get do %>
+<%= form_tag restaurants_path, method: :get do %>
 <%= button_tag(:class => "btn btn-primary btn-lg", :id => "continue_shopping") do %>
    Create a New Order <span class="glyphicon glyphicon-cart" ></span>
 <% end %>
@@ -13,7 +13,7 @@
 </br>
 </br>
 </br>
-<%= form_tag orders_path, method: :get do %>
+<%= form_tag user_orders_path(current_user), method: :get do %>
 <%= button_tag(:class => "btn btn-primary btn-lg", :id => "review_orders_btn") do %>
    Review Existing Orders <span class="glyphicon glyphicon-cart" ></span>
 <% end %>

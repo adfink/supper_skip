@@ -2,11 +2,12 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :restaurants, only: [:index, :new, :create, :show] do
+  resources :restaurants do
     resources :items
     resources :orders
     resources :categories
   end
+
 
   resources :addresses
 
@@ -26,7 +27,9 @@ Rails.application.routes.draw do
     get 'dashboard',        to: 'dashboard#show'
   end
 
-  resources :users
+  resources :users do
+    resources :orders, only: [:index, :show, :new, :create]
+  end
 
   get    'login',  to: 'sessions#new'
   post   'login',  to: 'sessions#create'

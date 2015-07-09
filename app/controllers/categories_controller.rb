@@ -1,6 +1,13 @@
 class CategoriesController < ApplicationController
   layout "special_layout"
   def index
-    @category = Category.all
+    @categories = Category.all
   end
+
+  def show
+    @category = Category.find(params[:id])
+  end
+
+
+
 end
