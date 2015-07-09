@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user
+  helper_method :current_restaurant
   helper_method :cart
 
   def current_user
@@ -11,6 +12,13 @@ class ApplicationController < ActionController::Base
 
   def cart
     @cart ||= Cart.new(session)
+  end
+
+  def current_restaurant
+    # binding.pry
+    if params[:restaurant_id]
+      @current_restaurant ||= Restaurant.find(params[:restaurant_id])
+    end
   end
 
 end

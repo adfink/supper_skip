@@ -3,20 +3,17 @@ class User < ActiveRecord::Base
   has_many :restaurants
   has_many :orders
   has_many :addresses
-
+  has_many :user_roles
+  has_many :roles, through: :user_roles
 
   validates :full_name, presence: true
   validates :email_address, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i }
   validates :email_address, uniqueness: true
 
-  # attr_accessible :name , :email
 
-  # User::Roles
-  # The available roles
-  Roles = [ :admin , :user ]
-
-  def is?( requested_role )
-    self.role == requested_role.to_s
+  def verify?(role, restaurant)
+    role = Role.find_by(name:role)
+    user_roles.where(restaurant_id: restaurant.id, role_id: role.id).any?
   end
 
 

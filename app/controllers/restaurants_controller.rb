@@ -1,5 +1,10 @@
 class RestaurantsController < ApplicationController
 
+  before_action :auth, only: [:edit]
+  before_action :require_login, only: [:edit]
+  before_action :load_restaurant, only: [:edit]
+
+
   layout 'special_layout'
   def new
     @restaurant = Restaurant.new
@@ -26,9 +31,34 @@ class RestaurantsController < ApplicationController
     @restaurants = Restaurant.all
   end
 
+  def edit
+    # binding.pry
+  end
+
   private
 
   def restaurant_params
     params.require(:restaurant).permit(:name, :description, :display_name)
+  end
+
+  private
+
+  def auth
+    this_dude = Permissions.new(current_user)
+
+    unless this_dude.can_edit_restaurant?(@restaurant)
+      flash[:notice] = "get lost, #{current_user.name}!"
+      redirect_to root_path
+    end
+  end
+
+  def require_login
+    unless current_user
+      redirect_to login_path
+    end
+  end
+
+  def load_restaurant
+    @store = Restaurant.find(params[:id])
   end
 end

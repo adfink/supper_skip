@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :restaurants, only: [:index, :new, :create, :show] do
+  resources :restaurants do
     resources :items
     resources :orders
     resources :categories
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :orders, only: [:index, :show]
+    resources :orders, only: [:index, :show, :new, :create]
   end
 
   get    'login',  to: 'sessions#new'

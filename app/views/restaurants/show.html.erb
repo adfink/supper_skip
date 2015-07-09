@@ -14,6 +14,7 @@
           <div class="button">
             <%= form_tag '/add_item', method: :get do %>
               <%= hidden_field_tag :item_id, item.id  %>
+              <%= hidden_field_tag :restaurant_id, @restaurant.id  %>
               <%= button_tag(:class => "btn btn-default btn-sm", :id => "cart_button") do %>
                 add to cart <span class="glyphicon glyphicon-shopping-cart" ></span>
               <% end %>
@@ -30,7 +31,7 @@
   <h2> <%= link_to c.name, restaurant_category_path(@restaurant,c) %> </h2>
 <% end %>
 
-<% if current_user && current_user.is?("admin") %>
+<% if current_user && current_user.verify?("admin", @restaurant) %>
   <%= link_to "edit restaurant info", edit_restaurant_path(@restaurant) %>
 <% end %>
 

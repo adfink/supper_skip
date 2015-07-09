@@ -56,7 +56,6 @@
           <% end %>
           <%= link_to 'My Orders', user_orders_path(current_user) if current_user %>
         <% end %>
-        <p><%= link_to 'Admin Dashboard', admin_dashboard_path if can? :create, User %> </p>
 
 
       </ul>
