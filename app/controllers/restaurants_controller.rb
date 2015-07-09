@@ -1,8 +1,7 @@
 class RestaurantsController < ApplicationController
-
+  before_action :load_restaurant, only: [:edit]
   before_action :auth, only: [:edit]
   before_action :require_login, only: [:edit]
-  before_action :load_restaurant, only: [:edit]
 
 
   layout 'special_layout'
@@ -20,6 +19,7 @@ class RestaurantsController < ApplicationController
     restaurant.user_id = session[:user_id]
 
     if restaurant.save
+      UserRole.create(user_id: current_user.id, restaurant_id: restaurant.id, role_id: 1)
       redirect_to restaurant
     else
       flash.now[:errors] = restaurant.errors.full_messages.join(", ")
@@ -32,7 +32,6 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
-    # binding.pry
   end
 
   private
@@ -59,6 +58,6 @@ class RestaurantsController < ApplicationController
   end
 
   def load_restaurant
-    @store = Restaurant.find(params[:id])
+    @restaurant = Restaurant.find_by(display_name: params[:id])
   end
 end
