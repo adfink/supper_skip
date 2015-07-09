@@ -9,7 +9,7 @@ class CartsController < ApplicationController
 
   def add_item
     cart.add_item(params[:item_id])
-    redirect_to categories_path
+    redirect_to current_restaurant
   end
 
   def remove_item

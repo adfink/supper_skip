@@ -2,6 +2,7 @@ class Item < ActiveRecord::Base
   has_many :order_items
   has_many :category_items
   has_many :categories, through: :category_items
+  belongs_to :restaurant
   validates :name, presence: :true
   validates :description, length: { minimum: 25 }
   validates :price, presence: :true

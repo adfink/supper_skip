@@ -1,1 +1,40 @@
 <%= @restaurant.name %>
+  <% @restaurant.items.each do |item| %>
+    <h2> <%= item.name %> </h2>
+    <div class="row">
+      <div class="col-sm-4 col-md-3">
+        <div class="thumbnail">
+          <%= image_tag item.image.url(:medium), {class: "menu_cart_img"} %>
+          <!-- <img src="http://whatscookingamerica.net/History/RockyMtnOysters4.jpg" alt="Mountain View" style="width:auto;height:45%"> -->
+          <div class="caption">
+            <h4> <%= item.name %> </h4>
+            <p class="item_description"> <%= item.description %></p>
+            <p>Price: <%= number_to_currency(item.price) %> </p>
+          </div>
+          <div class="button">
+            <%= form_tag '/add_item', method: :get do %>
+              <%= hidden_field_tag :item_id, item.id  %>
+              <%= hidden_field_tag :restaurant_id, @restaurant.id  %>
+              <%= button_tag(:class => "btn btn-default btn-sm", :id => "cart_button") do %>
+                add to cart <span class="glyphicon glyphicon-shopping-cart" ></span>
+              <% end %>
+              </div>
+              </div>
+              </div>
+            <% end %>
+            </div>
+  <% end %>
+
+
+
+<% @restaurant.categories.each do |c| %>
+  <h2> <%= link_to c.name, restaurant_category_path(@restaurant,c) %> </h2>
+<% end %>
+
+<% if current_user && current_user.verify?("admin", @restaurant) %>
+  <%= link_to "edit restaurant info", edit_restaurant_path(@restaurant) %>
+<% end %>
+
+
+
+

@@ -43,7 +43,7 @@
 <br/>
   <div>
     <div class="pickup-delivery-button">
-      <%= form_tag '/orders', method: :post do %>
+      <%= form_tag user_orders_path(current_user), method: :post do %>
         <%= button_tag(:class => "btn btn-primary btn-lg", :id => "pickup_btn") do %>
            Pick Up
         <% end %>
@@ -57,7 +57,7 @@
 </div>
 </div>
 </br>
-<%= form_tag categories_path, method: :get do %>
+<%= form_tag restaurants_path, method: :get do %>
   <%= button_tag(:class => "btn btn-success btn-sm", :id => "continue_shopping_btn") do %>
      continue shopping <span class="glyphicon glyphicon-shopping-cart" ></span>
   <% end %>
