@@ -15,49 +15,19 @@
   </div>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li>EATSY</li>
-      <li class="active"><%= link_to "Home", root_path %></li>
-      <li class="active"><%= link_to "Restaurants", restaurants_path %></li>
-      <li class="active"><%= link_to "About", about_path %></li>
-      <li class="active"><%= link_to "News and Blog", gift_cards_path %></li>
-      <li class="active"><%= link_to "Contact Us", contact_us_path %></li>
+      <li><%= link_to "Home", root_path %></li>
+      <li><%= link_to "Restaurants", restaurants_path %></li>
     </ul>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-
         <% if session[:user_id] %>
-        <div class="button">
-        <p>Logged in as <%= current_user.email_address %></p>
-        <%= link_to "Logout", logout_path, method: :delete %>
-        </div>
+          <li><%= link_to "My Orders", user_orders_path(current_user)%></li>
+          <li><%= link_to "Logout", logout_path, method: :delete %></li>
         <% else %>
-        <div class="login_form">
-        <%= form_tag login_path do %>
-        <%= label_tag :email_address %>
-        <%= text_field_tag :email_address %> <br>
-        <%= label_tag :password %>
-        <%= password_field_tag :password %>
-        <%= submit_tag value="Log In" %>
+          <li><%= link_to "Register", new_user_path %></li>
+          <li><%= link_to "Login", login_path %></li>
         <% end %>
-        <p class="link"><%= link_to "Create Account", new_user_path %></p>
-        </div>
-        <% end %>
-
-        <%= form_tag '/cart', method: :get do %>
-        <%= button_tag(:class => "btn btn-default btn-sm", :id => "cart_btn") do %>
-           cart <span class="glyphicon glyphicon-shopping-cart" ></span>
-        <% end %>
-          <% if session[:cart_items] %>
-            <%= session[:cart_items].values.reduce(:+) %> items
-
-          <% else  %>
-            <%= "0 items" %>
-
-          <% end %>
-          <%= link_to 'My Orders', user_orders_path(current_user) if current_user %>
-        <% end %>
-
-
+        <li><a href="/cart"><i class="glyphicon glyphicon-shopping-cart" style="font-size: 20px;"></i></a></li>
       </ul>
     </div>
    </div>
