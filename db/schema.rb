@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150708232537) do
+ActiveRecord::Schema.define(version: 20150710215941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,14 @@ ActiveRecord::Schema.define(version: 20150708232537) do
 
   add_index "items", ["restaurant_id"], name: "index_items_on_restaurant_id", using: :btree
 
+  create_table "online_orders", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "online_orders", ["user_id"], name: "index_online_orders_on_user_id", using: :btree
+
   create_table "order_items", force: true do |t|
     t.integer  "order_id"
     t.integer  "item_id"
@@ -80,12 +88,16 @@ ActiveRecord::Schema.define(version: 20150708232537) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "open",       default: true
+    t.boolean  "open",            default: true
     t.string   "status"
     t.integer  "address_id"
+    t.integer  "restaurant_id"
+    t.integer  "online_order_id"
   end
 
   add_index "orders", ["address_id"], name: "index_orders_on_address_id", using: :btree
+  add_index "orders", ["online_order_id"], name: "index_orders_on_online_order_id", using: :btree
+  add_index "orders", ["restaurant_id"], name: "index_orders_on_restaurant_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "restaurants", force: true do |t|

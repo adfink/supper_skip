@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
   has_many :restaurants
-  has_many :orders
+  has_many :online_orders
   has_many :addresses
   has_many :user_roles
   has_many :roles, through: :user_roles

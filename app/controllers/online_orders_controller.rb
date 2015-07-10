@@ -1,0 +1,3 @@
+class OnlineOrdersController < ApplicationController
+
+end

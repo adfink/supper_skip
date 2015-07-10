@@ -2,6 +2,8 @@ class Order < ActiveRecord::Base
   validates :status, inclusion: {in: %w(paid completed canceled ordered)}
   has_many :order_items
   has_many :items, through: :order_items
+  belongs_to :online_order
+  belongs_to :restaurant
   belongs_to :user
   belongs_to :address
 
