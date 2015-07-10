@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
   end
 
   def create
+
     item = Item.new(item_params)
     item.restaurant_id = @restaurant.id
 
@@ -27,6 +28,7 @@ class ItemsController < ApplicationController
 
   private
   def item_params
+
     params.require(:item).permit(:name, :description, :price)
   end
 
