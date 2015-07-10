@@ -1,0 +1,64 @@
+<div id="checkout_page" >
+  <h1 id="checkout-cart-header"> Checkout </h1>
+  <table class="tg">
+
+    <tr>
+      <th>Item Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total  </th>
+    </tr>
+
+    <% cart.items.each do |item_id, quantity| %>
+      <tr>
+        <td> <%= cart.item(item_id).name %>  </td>
+        <td> <%= quantity %> </td>
+        <td> <%= number_to_currency(cart.item(item_id).price, precision: 2) %> </td>
+        <td> <%= number_to_currency(cart.line_item_price(item_id, quantity)) %> </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td>  Subtotal </td>
+      <td>  </td>
+      <td>  </td>
+      <td> <%= number_to_currency(@subtotal) %> </td>
+    </tr>
+
+    <tr>
+      <td>  Tax </td>
+      <td>  </td>
+      <td>  </td>
+      <td> <%= number_to_currency(@tax) %> </td>
+    </tr>
+
+    <tr>
+      <td>  Total </td>
+      <td>  </td>
+      <td>  </td>
+      <td> <%= number_to_currency(@total) %> </td>
+    </tr>
+  </table>
+
+  <h2> Is This Order For Pick Up or Delivery?</h2>
+  <br/>
+  <div>
+    <div class="pickup-delivery-button">
+      <%= form_tag user_online_orders_path(current_user), method: :post do %>
+        <%= button_tag(:class => "btn btn-primary btn-lg", :id => "pickup_btn") do %>
+          Pick Up
+        <% end %>
+        <% if @addresses.any? %>
+          <%= link_to "Delivery", addresses_path, class: "btn btn-primary btn-lg", id: "delivery_btn" %>
+        <% else %>
+          <%= link_to "Delivery", new_address_path, class: "btn btn-primary btn-lg", id: "delivery_btn" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+</br>
+<%= form_tag restaurants_path, method: :get do %>
+  <%= button_tag(:class => "btn btn-success btn-sm", :id => "continue_shopping_btn") do %>
+    continue shopping <span class="glyphicon glyphicon-shopping-cart" ></span>
+  <% end %>
+<% end %>

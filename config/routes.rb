@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   # end
 
   resources :users do
-    resources :orders, only: [:index, :show, :new, :create]
+    resources :online_orders, only: [:index, :show, :new, :create]
   end
 
   get    'login',  to: 'sessions#new'

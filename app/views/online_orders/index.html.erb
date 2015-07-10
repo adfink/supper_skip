@@ -1,0 +1,19 @@
+<table class="tg">
+  <tr>
+    <th class="tg-e3zv">Name: <br>Email: </th>
+    <th class="tg-031e"><%= @current_user.full_name %><br><%= @current_user.email_address %><br>
+
+    <th class="tg-031e"></th>
+  </tr>
+  <tr>
+    <td class="tg-e3zv">Order #</td>
+    <td class="tg-e3zv">Order created</td>
+    <td class="tg-e3zv">Status</td>
+  </tr>
+  <% @online_orders.each do |order| %>
+    <tr class = 'orders_smorders'>
+      <td class="tg-031e" ><%= link_to order.id, user_online_order_path(current_user, order) %></td>
+      <td class="tg-031e"><%= order.user.created_at.strftime("%d %b. %Y") %></td>
+  <% end %>
+  </tr>
+</table>
