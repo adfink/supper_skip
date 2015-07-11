@@ -30,19 +30,28 @@ class OnlineOrdersController < ApplicationController
         Item.find(item_id.to_i).restaurant_id
       end.uniq
 
-      created_orders = restaurant_ids.map do |id|
+      @created_orders = restaurant_ids.map do |id|
                       Order.create(user_id: current_user.id,
                                     online_order_id: @online_order.id,
                                     restaurant_id: id,
                                     address_id: params[:address],
                                     status: "paid" )
-      # session[:cart_items].map do |item_id, quantity|
-          # order_items.new(item_id: item_id, quantity: quantity)
+      end
+      @created_orders.map do |order|
+        the_restaurant_id = order.restaurant_id
+        items_for_order = session[:cart_items].keys.map do |item_id|
+          Item.find(item_id.to_i)
+        end.select do |item|
+          item.restaurant_id == the_restaurant_id
+        end
+        items_for_order.map do |item|
+          order.order_items.create(item_id: item.id, quantity: 5)
+        end
       end
       session[:cart_items] = {}
       redirect_to verification_path
+      end
     end
-  end
 
   def edit
   end

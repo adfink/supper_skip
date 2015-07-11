@@ -1,9 +1,10 @@
 class OrdersController < ApplicationController
+  before_action :load_restaurant
   before_action :authenticate_user
   before_action :set_order, only: [:show]
 
   def index
-    @orders = current_user.orders
+    @orders = @restaurant.orders
   end
 
   def show
@@ -43,18 +44,24 @@ class OrdersController < ApplicationController
 
   private
   def authenticate_user
-    unless current_user
-      flash[:notice] = 'Please log in or create account to complete order'
-      session[:return_to] = cart_path
-      redirect_to new_user_path
+    this_dude = Permissions.new(current_user)
+    unless this_dude.can_edit_restaurant?(@restaurant)
+      flash[:notice] = "get lost, #{current_user.full_name}!"
+      redirect_to root_path
     end
   end
 
+  def load_restaurant
+    @restaurant = Restaurant.find_by(display_name: params[:restaurant_id])
+  end
+
   def set_order
-    if current_user.orders.collect { |order| order.id }.include?(params[:id].to_i)
-      @order = current_user.orders.find(params[:id])
+    if @restaurant.orders.collect { |order| order.id }.include?(params[:id].to_i)
+      @order = @restaurant.orders.find(params[:id])
     else
       redirect_to :root
     end
   end
+
+
 end
