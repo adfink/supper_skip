@@ -2,6 +2,24 @@ class OrdersController < ApplicationController
   before_action :authenticate_user
   before_action :set_order, only: [:show]
 
+  def index
+    @orders = current_user.orders
+  end
+
+  def show
+  end
+
+  def new
+    @addresses = Address.where(user_id: session[:id])
+    if cart.empty?
+      redirect_to cart_path, notice: 'Please add items to your cart before checking out. Thank you!'
+    else
+      @subtotal = Cart.subtotal(session)
+      @tax = Cart.tax(session)
+      @total = Cart.total(session)
+    end
+  end
+
   def create
     if session[:cart_items].empty?
       redirect_to verification_path
@@ -17,28 +35,10 @@ class OrdersController < ApplicationController
     end
   end
 
-  def index
-    @orders = current_user.orders
-  end
-
-  def new
-    @addresses = Address.where(user_id: session[:id])
-    if cart.empty?
-      redirect_to cart_path, notice: 'Please add items to your cart before checking out. Thank you!'
-    else
-      @subtotal = Cart.subtotal(session)
-      @tax = Cart.tax(session)
-      @total = Cart.total(session)
-    end
-  end
-
-  def show
+  def edit
   end
 
   def update
-  end
-
-  def edit
   end
 
   private

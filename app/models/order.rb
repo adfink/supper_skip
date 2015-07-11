@@ -1,11 +1,12 @@
 class Order < ActiveRecord::Base
-  validates :status, inclusion: {in: %w(paid completed canceled ordered)}
-  has_many :order_items
-  has_many :items, through: :order_items
   belongs_to :online_order
   belongs_to :restaurant
   belongs_to :user
   belongs_to :address
+  has_many :order_items
+  has_many :items, through: :order_items
+
+  validates :status, inclusion: {in: %w(paid completed canceled ordered)}
 
   scope :paid,      -> { where(status: "paid") }
   scope :completed, -> { where(status: "completed") }
@@ -28,7 +29,5 @@ class Order < ActiveRecord::Base
   def total
     subtotal + tax
   end
-
-  
 
 end
