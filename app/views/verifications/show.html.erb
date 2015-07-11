@@ -1,22 +1,23 @@
 
 <div id="confirmation_message" >
-<h1> Thank You For Ordering </h1>
-</br>
-<div id="confirmation-options">
-<h2>What would you like to do next?</h2>
-</br>
-<%= form_tag restaurants_path, method: :get do %>
-<%= button_tag(:class => "btn btn-primary btn-lg", :id => "continue_shopping") do %>
-   Create a New Order <span class="glyphicon glyphicon-cart" ></span>
-<% end %>
-<% end %>
-</br>
-</br>
-</br>
-<%= form_tag user_online_orders_path(current_user), method: :get do %>
-<%= button_tag(:class => "btn btn-primary btn-lg", :id => "review_orders_btn") do %>
-   Review Existing Orders <span class="glyphicon glyphicon-cart" ></span>
-<% end %>
-<% end %>
-<div id="confirmation-options">
+  <h1> Thank You For Ordering </h1></br>
+  <div id="confirmation-options">
+  <h2>What would you like to do next?</h2></br>
+
+    <%= form_tag restaurants_path, method: :get do %>
+      <%= button_tag(:class => "btn btn-primary btn-lg", :id => "continue_shopping") do %>
+         Create a New Order <span class="glyphicon glyphicon-cart" ></span>
+      <% end %>
+    <% end %>
+  </br>
+  </br>
+  </br>
+
+    <%= form_tag user_online_orders_path(current_user), method: :get do %>
+      <%= button_tag(:class => "btn btn-primary btn-lg", :id => "review_orders_btn") do %>
+        Review Existing Orders <span class="glyphicon glyphicon-cart" ></span>
+      <% end %>
+    <% end %>
+  <div id="confirmation-options"></div>
+  </div>
 </div>
