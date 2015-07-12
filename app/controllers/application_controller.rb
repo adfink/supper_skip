@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_restaurant
-    # binding.pry
     if params[:restaurant_id]
       @current_restaurant ||= Restaurant.find(params[:restaurant_id])
     end

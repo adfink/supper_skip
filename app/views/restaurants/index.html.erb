@@ -1,5 +1,6 @@
-<%= link_to "Register New Restaurant", new_restaurant_path %>
-
+<% if current_user %>
+  <%= link_to "Register New Restaurant", new_restaurant_path %>
+<% end %>
 
 <ul>
   <% @restaurants.each do |restaurant|  %>
