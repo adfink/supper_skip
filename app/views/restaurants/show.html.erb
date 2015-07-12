@@ -1,4 +1,10 @@
-<%= @restaurant.name %>
+<ul>
+  <% @restaurant.categories.each do |category| %>
+    <li><%= link_to category.name, restaurant_category_path(@restaurant, category) %></li>
+  <% end %>
+</ul>
+
+<h1><%= @restaurant.name %></h1>
   <% @restaurant.items.each do |item| %>
     <h2> <%= item.name %> </h2>
     <div class="row">
@@ -25,15 +31,10 @@
             </div>
   <% end %>
 
-
-
-<% @restaurant.categories.each do |c| %>
-  <h2> <%= link_to c.name, restaurant_category_path(@restaurant,c) %> </h2>
-<% end %>
-
 <% if current_user && current_user.verify?("admin", @restaurant) %>
-  <%= link_to "edit restaurant info", edit_restaurant_path(@restaurant) %>
+  <%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %>
   <%= link_to "Create New Restaurant Item", new_restaurant_item_path(@restaurant) %>
+  <%= link_to "Create New Category", new_restaurant_category_path(@restaurant) %>
 <% end %>
 
 

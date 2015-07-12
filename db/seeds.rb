@@ -25,61 +25,52 @@ owner3.user_roles.create(restaurant_id: restaurant3.id, role_id:1)
 owner4.user_roles.create(restaurant_id: restaurant4.id, role_id:1)
 owner5.user_roles.create(restaurant_id: restaurant5.id, role_id:1)
 
-appetizers   = Category.create(name: 'Appalachian Appetizers', position: 1)
-soups        = Category.create(name: 'Rocky Mountain Soups', position: 2)
-main_courses = Category.create(name: 'Mantiquierain Main Course', description: 'Served with a side salad', position: 3)
-gluten_free  = Category.create(name: 'Gluten Free', position: 4)
-desserts     = Category.create(name: 'Desserts', position: 5)
+category_names = ["Appetizers", "Lunch", "Dinner", "Desserts", "Soups", "Salads", "Favorites"]
 
-
-
-# items1 =restaurant1.items.create(name: 'Rocky Mountain Oysters',   description: 'Traditional bull balls served thinly sliced, deep fried and with a side of cocktail sauce.', price: 6.50, status: 'active', category_ids: [1], image_file_name: "RockyMtnOysters4.jpg")
+Restaurant.all.each do |restaurant|
+  category_names.shuffle!
+  restaurant.categories.create([{ name: category_names[0] }, { name: category_names[1] }])
+end
 
 restaurant1.items.create([
-  {name: 'Rocky Mountain Oysters',   description: 'Traditional bull balls served thinly sliced, deep fried and with a side of cocktail sauce.', price: 6.50, status: 'active', category_ids: [1], image_file_name: "RockyMtnOysters4.jpg"},
-  {name: 'Flaming Cactus and Chips', description: 'Cactus from southern mexico mixed into our delicious cheese and served to your table on fire!', price: 6.00, status: 'active', category_ids: [1, 4], image_file_name: "808-chili-cheese-nachos.jpg"},
-  {name: 'Creamy Artichoke & Spinach Dip', description: 'A local favorite, served with pretzel sticks and thick cut chips', price: 7.00, status: 'active', category_ids: [1, 4], image_file_name: "sa-dip.jpg"},
-  {name: 'Guacamole, Salsa and Chips', description: 'Watch you server mix what you want into the best guacamole you have tasted all day.', price: 7.50, status: 'active', category_ids: [1], image_file_name: "Guacomole.jpg"},
-  {name: 'Cheese Sticks', description: 'A house favorite. This is the one we struggle to keep the kitchen away from.', price: 5.50, status: 'retired', category_ids: [1], image_file_name: "baked-mexican-cheese-sticks-51-576x383.jpg"},
+  {name: 'Rocky Mountain Oysters',   description: 'Traditional bull balls served thinly sliced, deep fried and with a side of cocktail sauce.', price: 6.50, status: 'active', image_file_name: "RockyMtnOysters4.jpg", category_ids: [restaurant1.categories.sample.id]},
+  {name: 'Flaming Cactus and Chips', description: 'Cactus from southern mexico mixed into our delicious cheese and served to your table on fire!', price: 6.00, status: 'active', image_file_name: "808-chili-cheese-nachos.jpg", category_ids: [restaurant1.categories.sample.id]},
+  {name: 'Creamy Artichoke & Spinach Dip', description: 'A local favorite, served with pretzel sticks and thick cut chips', price: 7.00, status: 'active', image_file_name: "sa-dip.jpg", category_ids: [restaurant1.categories.sample.id]},
+  {name: 'Guacamole, Salsa and Chips', description: 'Watch you server mix what you want into the best guacamole you have tasted all day.', price: 7.50, status: 'active', image_file_name: "Guacomole.jpg", category_ids: [restaurant1.categories.sample.id]},
+  {name: 'Cheese Sticks', description: 'A house favorite. This is the one we struggle to keep the kitchen away from.', price: 5.50, status: 'retired', image_file_name: "baked-mexican-cheese-sticks-51-576x383.jpg", category_ids: [restaurant1.categories.sample.id]},
   ])
 
-
-restaurant2_items = Item.create([
-  {name: 'Kilimanjaro Kale and Potato Soup', description: 'Fresh kale, a perfect blend of seasonings and potatoes from the mountainous region of Idaho', price: 9.50, status: 'active', category_ids: [2, 4], image_file_name: "PotatoKaleSoup.jpg", restaurant_id: restaurant2.id},
-  {name: 'Chili', description: 'This hearty dish is loaded with 4 types of beans and buffalo burger.', price: 10.99, status: 'active', category_ids: [2], image_file_name: "chili-22_(1).jpg", restaurant_id: restaurant2.id},
-  {name: 'Himalayan Thukpa', description: 'A traditional dish straight from Nepal.', price: 10.00, status: 'active', category_ids: [2, 4], image_file_name: "Thukpa_Ready_1.JPG", restaurant_id: restaurant2.id},
-  {name: 'Southwestern Tortilla Soup', description: 'We discovered the recipe for this rather spicy soup deep in the heart of the Andes Mountains.', price: 8.50, status: 'retired', category_ids: [2], image_file_name: "tortilla_soup.jpg", restaurant_id: restaurant2.id},
-  {name: 'Broccoli Cheese Soup', description: "The perfect light dish for the day when you want to stay warm but are not 'too' hungry.", price: 9.00, status: 'active', category_ids: [2], image_file_name: "broccoli-cheese-soup-1-550.jpg", restaurant_id: restaurant2.id},
+restaurant2.items.create([
+  {name: 'Kilimanjaro Kale and Potato Soup', description: 'Fresh kale, a perfect blend of seasonings and potatoes from the mountainous region of Idaho', price: 9.50, status: 'active', image_file_name: "PotatoKaleSoup.jpg", category_ids: [restaurant2.categories.sample.id]},
+  {name: 'Chili', description: 'This hearty dish is loaded with 4 types of beans and buffalo burger.', price: 10.99, status: 'active', image_file_name: "chili-22_(1).jpg", category_ids: [restaurant2.categories.sample.id]},
+  {name: 'Himalayan Thukpa', description: 'A traditional dish straight from Nepal.', price: 10.00, status: 'active', image_file_name: "Thukpa_Ready_1.JPG", category_ids: [restaurant2.categories.sample.id]},
+  {name: 'Southwestern Tortilla Soup', description: 'We discovered the recipe for this rather spicy soup deep in the heart of the Andes Mountains.', price: 8.50, status: 'retired', image_file_name: "tortilla_soup.jpg", category_ids: [restaurant2.categories.sample.id]},
+  {name: 'Broccoli Cheese Soup', description: "The perfect light dish for the day when you want to stay warm but are not 'too' hungry.", price: 9.00, status: 'active', image_file_name: "broccoli-cheese-soup-1-550.jpg", category_ids: [restaurant2.categories.sample.id]},
   ])
 
-
-restaurant3_items = Item.create([
-  {name: 'Ranier Ribeye',             description: 'Only the best beef is never frozen and marinated in our world famous marinade. Served with Mashed Potatoes.', price: 14.99, status: 'active', category_ids: [3, 4], image_file_name: "ribeye.jpg", restaurant_id: restaurant3.id},
-  {name: 'The Mount McKinley Salad', description: 'People have traversed high ranges to get a taste of our Mckinley salad. This dish is sure to bring you back again.', price: 11.99, status: 'active', category_ids: [3], image_file_name: "salad.jpg", restaurant_id: restaurant3.id},
-  {name: '5 Alarm Burger', description: 'Turn up the heat with jalapenos, pepper jack cheese, grilled onions and our house buffalo sauce.', price: 9.99, status: 'active', category_ids: [3], image_file_name: "Giraffas_BrutusBurger.jpg", restaurant_id: restaurant3.id},
-  {name: 'Rack of Ribs', description: 'Our ribs are slow smoked and practically fall off the bone. Basted in our house special BBQ sauce.', price: 15.99, status: 'active', category_ids: [3], image_file_name: "full_rack_of_ribs.jpg", restaurant_id: restaurant3.id},
-  {name: 'Curry Vegabowl', description: 'Inspired by a hiking trip in India, this dish will make your tastebuds tingle', price: 12.99, status: 'active', category_ids: [3, 4], image_file_name: "vegetarian-curry-fresh-bowl-vancouver-1024x768.jpg", restaurant_id: restaurant3.id},
+restaurant3.items.create([
+  {name: 'Ranier Ribeye',             description: 'Only the best beef is never frozen and marinated in our world famous marinade. Served with Mashed Potatoes.', price: 14.99, status: 'active', image_file_name: "ribeye.jpg", category_ids: [restaurant3.categories.sample.id]},
+  {name: 'The Mount McKinley Salad', description: 'People have traversed high ranges to get a taste of our Mckinley salad. This dish is sure to bring you back again.', price: 11.99, status: 'active', image_file_name: "salad.jpg", category_ids: [restaurant3.categories.sample.id]},
+  {name: '5 Alarm Burger', description: 'Turn up the heat with jalapenos, pepper jack cheese, grilled onions and our house buffalo sauce.', price: 9.99, status: 'active', image_file_name: "Giraffas_BrutusBurger.jpg", category_ids: [restaurant3.categories.sample.id]},
+  {name: 'Rack of Ribs', description: 'Our ribs are slow smoked and practically fall off the bone. Basted in our house special BBQ sauce.', price: 15.99, status: 'active', image_file_name: "full_rack_of_ribs.jpg", category_ids: [restaurant3.categories.sample.id]},
+  {name: 'Curry Vegabowl', description: 'Inspired by a hiking trip in India, this dish will make your tastebuds tingle', price: 12.99, status: 'active', image_file_name: "vegetarian-curry-fresh-bowl-vancouver-1024x768.jpg", category_ids: [restaurant3.categories.sample.id]},
           ])
 
-
-restaurant4_items = Item.create([
-  {name: 'Peach Crisp with Vanilla Ice Cream', description: 'Our peach crisp is so good its illegal on most mountain tops.', price: 6.99, status: 'active', category_ids: [5], image_file_name: "peach_cobbler.jpg", restaurant_id: restaurant4.id},
-  {name: 'Carrot Cake', description: 'A good hearty dessert that will last you till morning.', price: 5.99, status: 'retired', category_ids: [5], image_file_name: "traditional-cakes-cute-white-and-brown-carrot-cake-decorating-idea-with-white-cream-orange-carrot-accent-with-celery-and-silver-fork-fancy-carrot-cake-decorating-ideas.jpg", restaurant_id: restaurant4.id},
-  {name: 'Rhubarb Pie', description: 'Rhubarb grows wild and sometimes you can pick some while hiking. You do that and we will show you how to turn it into pie.', price: 5.99, status: 'active', category_ids: [5, 4], image_file_name: "Rhubarb_pie.jpg", restaurant_id: restaurant4.id},
-  {name: 'Hot Chocolate Supreme', description: 'We mix three types of chocolate and also build your mug out of chocalate so you can eat that too!', price: 8.99, status: 'active', category_ids: [5], image_file_name: "Gourmet-Hot-Cocoa-Rocky-Road-Hot-Chocolate.jpg", restaurant_id: restaurant4.id},
-  {name: 'Homemade Caramel Fondue', description: '', price: 5.00, status: 'active', category_ids: [5], image_file_name: "Gourmet-Hot-Cocoa-Rocky-Road-Hot-Chocolate.jpg", restaurant_id: restaurant4.id}
+restaurant4.items.create([
+  {name: 'Peach Crisp with Vanilla Ice Cream', description: 'Our peach crisp is so good its illegal on most mountain tops.', price: 6.99, status: 'active', image_file_name: "peach_cobbler.jpg", category_ids: [restaurant4.categories.sample.id]},
+  {name: 'Carrot Cake', description: 'A good hearty dessert that will last you till morning.', price: 5.99, status: 'retired', image_file_name: "traditional-cakes-cute-white-and-brown-carrot-cake-decorating-idea-with-white-cream-orange-carrot-accent-with-celery-and-silver-fork-fancy-carrot-cake-decorating-ideas.jpg", category_ids: [restaurant4.categories.sample.id]},
+  {name: 'Rhubarb Pie', description: 'Rhubarb grows wild and sometimes you can pick some while hiking. You do that and we will show you how to turn it into pie.', price: 5.99, status: 'active', image_file_name: "Rhubarb_pie.jpg", category_ids: [restaurant4.categories.sample.id]},
+  {name: 'Hot Chocolate Supreme', description: 'We mix three types of chocolate and also build your mug out of chocalate so you can eat that too!', price: 8.99, status: 'active', image_file_name: "Gourmet-Hot-Cocoa-Rocky-Road-Hot-Chocolate.jpg", category_ids: [restaurant4.categories.sample.id]},
+  {name: 'Homemade Caramel Fondue', description: '', price: 5.00, status: 'active', image_file_name: "Gourmet-Hot-Cocoa-Rocky-Road-Hot-Chocolate.jpg", category_ids: [restaurant4.categories.sample.id]}
 ])
 
-restaurant5_items = Item.create([
-    {name: 'Ice Cream Kabab', description: 'Its ice cream on a stick. We didnt know it was possible either.  Just eat it', price: 65.99, status: 'active', category_ids: [5], image_file_name: "peach_cobbler.jpg", restaurant_id: restaurant5.id},
-    {name: 'Carrot Cake Kabab', description: 'A good hearty dessert that will last you till morning.', price: 5.99, status: 'retired', category_ids: [5], image_file_name: "traditional-cakes-cute-white-and-brown-carrot-cake-decorating-idea-with-white-cream-orange-carrot-accent-with-celery-and-silver-fork-fancy-carrot-cake-decorating-ideas.jpg", restaurant_id: restaurant5.id},
-    {name: 'Rhubarb Pie Kabab', description: 'Rhubarb grows wild and sometimes you can pick some while hiking. You do that and we will show you how to turn it into pie.', price: 5.99, status: 'active', category_ids: [5, 4], image_file_name: "Rhubarb_pie.jpg", restaurant_id: restaurant5.id},
-    {name: 'Hot Chocolate Supreme...Kabab', description: 'We mix three types of chocolate and also build your mug out of chocalate so you can eat that too! And then we put a stick through it so we can call it a kabab', price: 8.99, status: 'active', category_ids: [5], image_file_name: "Gourmet-Hot-Cocoa-Rocky-Road-Hot-Chocolate.jpg", restaurant_id: restaurant5.id},
-    {name: 'Homemade Caramel Fondue Kabab. Its on a stick, dont ask questions', description: '', price: 5.00, status: 'active', category_ids: [5], image_file_name: "Gourmet-Hot-Cocoa-Rocky-Road-Hot-Chocolate.jpg", restaurant_id: restaurant5.id}
+restaurant5.items.create([
+    {name: 'Ice Cream Kabab', description: 'Its ice cream on a stick. We didnt know it was possible either.  Just eat it', price: 65.99, status: 'active', image_file_name: "peach_cobbler.jpg", category_ids: [restaurant5.categories.sample.id]},
+    {name: 'Carrot Cake Kabab', description: 'A good hearty dessert that will last you till morning.', price: 5.99, status: 'retired', image_file_name: "traditional-cakes-cute-white-and-brown-carrot-cake-decorating-idea-with-white-cream-orange-carrot-accent-with-celery-and-silver-fork-fancy-carrot-cake-decorating-ideas.jpg", category_ids: [restaurant5.categories.sample.id]},
+    {name: 'Rhubarb Pie Kabab', description: 'Rhubarb grows wild and sometimes you can pick some while hiking. You do that and we will show you how to turn it into pie.', price: 5.99, status: 'active', image_file_name: "Rhubarb_pie.jpg", category_ids: [restaurant5.categories.sample.id]},
+    {name: 'Hot Chocolate Supreme...Kabab', description: 'We mix three types of chocolate and also build your mug out of chocalate so you can eat that too! And then we put a stick through it so we can call it a kabab', price: 8.99, status: 'active', image_file_name: "Gourmet-Hot-Cocoa-Rocky-Road-Hot-Chocolate.jpg", category_ids: [restaurant5.categories.sample.id]},
+    {name: 'Homemade Caramel Fondue Kabab. Its on a stick, dont ask questions', description: '', price: 5.00, status: 'active',image_file_name: "Gourmet-Hot-Cocoa-Rocky-Road-Hot-Chocolate.jpg", category_ids: [restaurant5.categories.sample.id]}
   ])
-
-
-
 
 order1  = Order.create(status: 'ordered',     user_id: 4)
 order2  = Order.create(status: 'ordered',     user_id: 4)
