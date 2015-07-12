@@ -95,5 +95,4 @@ class OnlineOrdersController < ApplicationController
   def set_online_order
       @online_order = current_user.online_orders.find(params[:id])
   end
-
 end
