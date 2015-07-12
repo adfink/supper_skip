@@ -41,14 +41,20 @@
 <% end %>
 </br>
 
-<%= form_tag new_user_online_order_path(current_user), method: :get do %>
-  <%= button_tag(:class => "btn btn-primary btn-sm", :id => "ckout_btn") do %>
-     check out <span class="glyphicon glyphicon-usd" ></span>
+<% if current_user %>
+  <%= form_tag new_user_online_order_path(current_user), method: :get do %>
+    <%= button_tag(:class => "btn btn-primary btn-sm", :id => "ckout_btn") do %>
+       Checkout
+    <% end %>
   <% end %>
+<% else %>
+  <%= link_to "Login to Checkout", login_path %>
 <% end %>
+
 </br>
+
 <%= form_tag restaurants_path, method: :get do %>
   <%= button_tag(:class => "btn btn-success btn-sm", :id => "continue_shopping_btn") do %>
-     continue shopping <span class="glyphicon glyphicon-shopping-cart" ></span>
+     Continue Shopping
   <% end %>
 <% end %>
