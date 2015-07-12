@@ -1,3 +1,8 @@
+<% if current_user && current_user.verify?("admin", @restaurant) %>
+  <%= link_to "Edit Category", edit_restaurant_category_path(@restaurant, @category) %>
+  <%= link_to "Delete Category", restaurant_category_path(@restaurant, @category), method: :delete %>
+<% end %>
+
 <h1> <%= @category.name %> </h1>
 
 <% @category.items.each do |item| %>

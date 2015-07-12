@@ -2,7 +2,7 @@ require "rails_helper"
 require 'capybara/rails'
 require 'capybara/rspec'
 
-feature "Managing Orders" do
+feature "Managing orders" do
   describe "as an anonymous user" do
     it "trying to access the orders page" do
       visit admin_orders_path
@@ -120,7 +120,7 @@ feature "Managing Orders" do
 
       expect(page).to have_text "John"
       expect(page).to_not have_text "Jane"
-      click_link('View All Orders')
+      click_link('View All orders')
       expect(page).to have_text "John"
       expect(page).to have_text "Jane"
     end
