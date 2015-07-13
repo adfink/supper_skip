@@ -84,7 +84,7 @@ feature "unregistered user is able to shop items at multiple restaurants" do
       fill_in "Email address", with: "tommy@email.com"
       fill_in "Password", with: "password"
       click_button "Log In"
-      
+
       click_on("Toggle navigation")
       find('#cart').click
 
