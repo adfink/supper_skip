@@ -1,4 +1,5 @@
 class AddressesController < ApplicationController
+
   def index
     @address = Address.new
     @addresses = Address.where(user_id: session[:id])
@@ -12,9 +13,9 @@ class AddressesController < ApplicationController
     @address = Address.new(address_params)
     @address.user_id = session[:id]
     if @address.save
-    redirect_to addresses_path
+      redirect_to addresses_path
     else
-    render :new
+      render :new
     end
   end
 

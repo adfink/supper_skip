@@ -1,6 +1,6 @@
 <h1>  Please Enter an Address </h1>
 
-  <%= form_for(@address, :url => user_online_orders_path(current_user), method: :post ) do |f| %>
+  <%= form_for(@address) do |f| %>
     <%= render "layouts/errors", object: @address %>
 
 
@@ -22,7 +22,7 @@
     </div>
   </br>
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit "Create Address" %>
     </div>
   <% end %>
 </div>
