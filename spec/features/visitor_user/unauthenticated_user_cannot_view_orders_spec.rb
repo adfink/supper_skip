@@ -9,7 +9,7 @@ RSpec.describe "unauthenicated user" do
 
       @user = User.create!(full_name: 'Billy', screen_name: 'Billy', email_address: 'billy@email.com', password: 'password')
 
-      @order = Order.create!(user_id: @user.id, item_id: @item.id, total: 20)
+      @order = OnlineOrder.create!(user_id: @user.id, item_id: @item.id, total: 20)
 
 #TODO Check test, written correctly? Is it properly creating an order?
     end
