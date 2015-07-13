@@ -18,7 +18,6 @@ class Order < ActiveRecord::Base
   end
 
   def subtotal
-    # binding.pry
     line_totals = order_items.map {|order_item| order_item.line_total}
     line_totals.reduce(:+)
   end
