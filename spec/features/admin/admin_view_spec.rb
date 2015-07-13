@@ -71,6 +71,10 @@ describe 'the admin view', type: :feature do
     expect(page).to_not have_content(8)
   end
 
+  xit can delete an item do
+
+  end
+
   xit 'can_change_item_category' do
     create_category({})
     create_item({})
@@ -87,22 +91,6 @@ describe 'the admin view', type: :feature do
     click_link 'Mountain Mud Pie'
     item = Item.find_by(name: 'Mountain Mud Pie')
     expect(item.categories.first.name).to eq('Desserts')
-  end
-
-  xit 'can delete a category when logged in as an admin' do
-    create_category({})
-    create_item({})
-    user = user_with({})
-    user.save
-    login_as(user)
-
-    visit items_path
-    click_link 'Admin Dashboard'
-
-    click_link('Manage Food Categories')
-    click_link('Desserts')
-    click_button('Delete this Category')
-    expect(page).to_not have_text('Desserts')
   end
 
   xit 'can create a category from the admin face' do
@@ -130,29 +118,21 @@ describe 'the admin view', type: :feature do
      click_button 'Save'
      expect(current_path).to eq(admin_categories_path)
      expect(page).to have_text('Category Successfully Updated!')
-   end
+  end
 
-  xit 'can create/delete an item when logged in as an admin' do
+  xit 'can delete??? a category when logged in as an admin' do
+    create_category({})
+    create_item({})
     user = user_with({})
     user.save
     login_as(user)
-    create_category({})
 
     visit items_path
     click_link 'Admin Dashboard'
-    expect(page).to have_css('#dashboard')
 
-    click_link('Manage Food Items')
-    click_link('Create')
-    fill_in 'Name', with: "Hamburger"
-    fill_in 'Description', with: 'Yum Yum Yum Yum Yum Yum Yum Yum Yum'
-    fill_in 'Price', with: '6.5'
-    check('Desserts')
-    click_button 'Save'
-    expect(page).to have_content('Hamburger')
-
-    click_link('Hamburger')
-    click_button('Delete this item')
-    expect(page).to_not have_text('Hamburger')
+    click_link('Manage Food Categories')
+    click_link('Desserts')
+    click_button('Delete this Category')
+    expect(page).to_not have_text('Desserts')
   end
 end
