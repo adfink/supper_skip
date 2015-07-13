@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     resources :categories
   end
 
-
   resources :addresses
 
   get 'code', to: 'welcome#code'
@@ -21,11 +20,6 @@ Rails.application.routes.draw do
   get 'add_item',         to: 'carts#add_item',       as: 'add_item'
   get 'remove_item',      to: 'carts#remove_item',    as: 'remove_item'
   put 'update_quantity',  to: 'carts#update_quantity',as: 'update_quantity'
-
-  # namespace :admin do
-  #   resources :items, :categories, :orders, :order_items
-  #   get 'dashboard',        to: 'dashboard#show'
-  # end
 
   resources :users do
     resources :online_orders, only: [:index, :show, :new, :create]
