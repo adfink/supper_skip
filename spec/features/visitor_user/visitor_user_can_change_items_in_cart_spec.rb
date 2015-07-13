@@ -1,24 +1,26 @@
 require "rails_helper"
 
-feature "any user is able to see" do
-  context "while not signed in" do
+describe 'any user is able to see', type: :feature do
+  # context "while not signed in" do
     before(:each) do
-      restaurant_a = Restaurants.new(name: 'Edible Objects', description: 'Tasty')
-      restaurant_b = Restaurants.new(name: 'Olive Garden', description: 'Authentic Italian')
+      owner1 = User.create(full_name: 'Whitney Houston', email_address: 'whit@whit.com', password: 'password', screen_name: 'whit')
+      @restaurant_a = owner1.restaurants.create(name: 'Edible Objects', description: 'Tasty', display_name:"edible")
+      @restaurant_b = owner1.restaurants.create(name: 'Olive Garden', description: 'Authentic Italian', display_name: "olive-garden")
+
       # category_a = restaurant_a.category.create(name: "Sweets")
       # category_b = restaurant_b.category.create(name: "Pastas")
-      item_a = restaurant_a.items.create(name: 'Organic Matter', description: 'Real good dirtttttttttasdfasdfasdfasdf', price: 20)
-      item_b = restaurant_b.items.create(name: 'Lasagna', description: 'Definitely not made of plasticasdfasdfasdfa', price: 25)
+      item_a = @restaurant_a.items.create(name: 'Organic Matter', description: 'Real good dirtttttttttasdfasdfasdfasdf', price: 20)
+      item_b = @restaurant_b.items.create(name: 'Lasagna', description: 'Definitely not made of plasticasdfasdfasdfa', price: 25)
 
       user = User.create!(full_name: 'Billy', screen_name: 'Billy', email_address: 'billy@email.com', password: 'password')
     end
 
-    xit "can add items to a cart" do
-      visit restaurant_path(restaurant_a)
+    it "can add items to a cart" do
+      visit restaurants_path(@restaurant_a)
       click_on "Edible Objects"
       click_on "add to cart"
 
-      visit restaurant_path(restaurant_b)
+      visit restaurants_path(@restaurant_b)
       click_on "Olive Garden"
       click_on "add to cart"
 
@@ -65,5 +67,5 @@ feature "any user is able to see" do
       expect(page).to have_content(20)
 
     end
-  end
+  # end
 end

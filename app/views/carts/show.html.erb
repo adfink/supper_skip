@@ -42,15 +42,10 @@
 </br>
 
 <% if current_user %>
-  <%= form_tag new_user_online_order_path(current_user), method: :get do %>
-    <%= button_tag(:class => "btn btn-primary btn-sm", :id => "ckout_btn") do %>
-       Checkout
-    <% end %>
-  <% end %>
+  <%= button_to "Checkout", new_user_online_order_path(current_user), method: :get %>
 <% else %>
-  <%= link_to "Login to Checkout", login_path %>
+  <%= button_to "Checkout", login_path(origin: {destination: "checkout"}), method: :get %>
 <% end %>
-
 </br>
 
 <%= form_tag restaurants_path, method: :get do %>

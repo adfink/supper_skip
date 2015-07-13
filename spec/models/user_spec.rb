@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User, :type => :model do
     let(:user) do
-    User.new(email_address: "Joe@test.com", full_name: "Joe Test", password: '1234', password_confirmation: "1234")
+    User.new(full_name: "Joe Test",
+             email_address: "Joe@test.com",
+             password: '1234',
+             password_confirmation: "1234")
   end
 
   it 'is valid' do
