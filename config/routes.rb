@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get 'code', to: 'welcome#code'
 
-  get 'complete_delivery_order', to: 'orders1#create'
+  get 'complete_delivery_order', to: 'orders#create'
   get 'checkout',         to: 'checkouts#show'
   get 'complete_order',   to: 'checkouts#complete_order'
 

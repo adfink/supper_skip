@@ -82,7 +82,7 @@ describe 'the user view', type: :feature do
         assert page.status_code == 404
         visit '/admin/dashboard'
         assert page.status_code == 404
-        visit '/admin/orders1'
+        visit '/admin/orders'
         assert page.status_code == 404
         visit '/admin/items'
         assert page.status_code == 404
