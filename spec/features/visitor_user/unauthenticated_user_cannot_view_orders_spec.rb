@@ -14,7 +14,7 @@ RSpec.describe "unauthenicated user" do
 #TODO Check test, written correctly? Is it properly creating an order?
     end
 
-    xit "cannot view past orders page" do
+    xit "cannot view past orders1 page" do
       visit restaurant_orders_path
 
       expect(current_path).to eq('/restaurant/users/new')

@@ -60,7 +60,7 @@ describe 'the user view', type: :feature do
       expect(order.address.city).to eq("Denver")
     end
 
-    it 'has an option to review placed orders after placing an order' do
+    it 'has an option to review placed orders1 after placing an order' do
       page.find('#cart_button').click
       page.find("#cart_btn").click
       page.find("#ckout_btn").click
@@ -102,7 +102,7 @@ describe 'the user view', type: :feature do
       user = create(user_with)
       create_order_with_order_item(user)
       login_as(user)
-      visit '/orders'
+      visit '/orders1'
     end
     it 'shows order' do
       order = Order.last

@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20150710215941) do
   add_index "order_items", ["item_id"], name: "index_order_items_on_item_id", using: :btree
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
 
-  create_table "orders", force: true do |t|
+  create_table "orders1", force: true do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"

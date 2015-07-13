@@ -2,9 +2,9 @@ require "rails_helper"
 require 'capybara/rails'
 require 'capybara/rspec'
 
-feature "Managing orders" do
+feature "Managing orders1" do
   describe "as an anonymous user" do
-    it "trying to access the orders page" do
+    it "trying to access the orders1 page" do
       visit admin_orders_path
       assert page.status_code == 404
     end
@@ -21,12 +21,12 @@ feature "Managing orders" do
       login_as(user)
     end
 
-    it "trying to access the orders page" do
+    it "trying to access the orders1 page" do
       visit admin_orders_path
       expect(page.current_path).to eq(admin_orders_path)
     end
 
-    it "viewing orders" do
+    it "viewing orders1" do
       paid      = create_order(user_id: user.id)
       canceled = create_order(status: "canceled", user_id: user.id)
       completed = create_order(status: "completed", user_id: user.id)
@@ -34,7 +34,7 @@ feature "Managing orders" do
 
       visit admin_orders_path
 
-      within('#orders') do
+      within('#orders1') do
         expect(page).to have_content paid.status.capitalize
         expect(page).to have_content canceled.status.capitalize
         expect(page).to have_content completed.status.capitalize
@@ -42,7 +42,7 @@ feature "Managing orders" do
       end
     end
 
-    it "viewing paid orders" do
+    it "viewing paid orders1" do
       paid      = create_order(user_id: user.id)
       canceled  = create_order(status: "canceled", user_id: user.id)
       completed = create_order(status: "completed", user_id: user.id)
@@ -51,7 +51,7 @@ feature "Managing orders" do
       visit admin_orders_path
       click_link "Paid (1)"
 
-      within('#shown-orders') do
+      within('#shown-orders1') do
         expect(page).to     have_content paid.status
         expect(page).not_to have_content canceled.status
         expect(page).not_to have_content completed.status
@@ -103,7 +103,7 @@ feature "Managing orders" do
       expect(page).to have_link "Ordered (0)"
     end
 
-    it "clicking all will allow you to view page with all orders again" do
+    it "clicking all will allow you to view page with all orders1 again" do
       create_order(status: 'ordered', user_id: user.id)
       create_order(status: 'ordered', user_id: user.id)
       user2 = User.create(full_name: 'Jane', email_address: 'jane@example.com', password: '1234', password_confirmation: '1234', role: 'admin')
@@ -120,7 +120,7 @@ feature "Managing orders" do
 
       expect(page).to have_text "John"
       expect(page).to_not have_text "Jane"
-      click_link('View All orders')
+      click_link('View All orders1')
       expect(page).to have_text "John"
       expect(page).to have_text "Jane"
     end
