@@ -13,21 +13,6 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
-  def edit
-    @item = @restaurant.items.find(params[:id])
-  end
-
-  def update
-    @item = Item.find(params[:id])
-
-    if @item.update(item_params)
-      redirect_to restaurant_item_path(@restaurant, @item), notice: "Category Updated"
-    else
-      flash.now[:errors] = @item.errors.full_messages.join(", ")
-      render :new
-    end
-  end
-
   def create
     item = Item.new(item_params)
     item.restaurant_id = @restaurant.id
@@ -40,6 +25,21 @@ class ItemsController < ApplicationController
     end
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+
+    if @item.update(item_params)
+      redirect_to restaurant_item_path(@restaurant, @item), notice: "Item Updated"
+    else
+      flash.now[:errors] = @item.errors.full_messages.join(", ")
+      render :edit
+    end
+  end
+
   def destroy
     item = Item.find(params[:id])
     Item.destroy_all(id: item.id)
@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
     redirect_to @restaurant
   end
 
-  private
+    private
   def item_params
     params.require(:item).permit(:name, :description, :price)
   end

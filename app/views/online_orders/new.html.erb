@@ -47,11 +47,9 @@
         <%= button_tag(:class => "btn btn-primary btn-lg", :id => "pickup_btn") do %>
           Pick Up
         <% end %>
-        <% if @addresses.any? %>
-          <%= link_to "Delivery", addresses_path, class: "btn btn-primary btn-lg", id: "delivery_btn" %>
-        <% else %>
-          <%= link_to "Delivery", new_address_path, class: "btn btn-primary btn-lg", id: "delivery_btn" %>
-        <% end %>
+
+        <%= link_to "Delivery", addresses_path, class: "btn btn-primary btn-lg", id: "delivery_btn" %>
+
       <% end %>
     </div>
   </div>

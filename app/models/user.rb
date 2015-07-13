@@ -15,6 +15,4 @@ class User < ActiveRecord::Base
     role = Role.find_by(name:role)
     user_roles.where(restaurant_id: restaurant.id, role_id: role.id).any?
   end
-
-
 end
