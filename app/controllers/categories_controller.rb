@@ -43,7 +43,6 @@ class CategoriesController < ApplicationController
     Category.destroy_all(id: category.id)
     flash[:alert] = "Category Deleted!"
     redirect_to @restaurant
-
   end
 
   private

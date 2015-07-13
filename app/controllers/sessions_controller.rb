@@ -7,9 +7,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(email_address: params[:email_address])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      # flash[:notice] = "login successful"
-      redirect_path = session[:return_to] || :back
-      redirect_to(redirect_path)
+      redirect_to root_path
     else
       flash[:error] = "invalid login"
       redirect_path = session[:return_to] || :back

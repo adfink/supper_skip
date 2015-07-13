@@ -9,9 +9,11 @@
     <h2> <%= item.name %> </h2>
     <div class="row">
       <div class="col-sm-4 col-md-3">
+        <%= link_to restaurant_item_path(@restaurant, item) do %>
         <div class="thumbnail">
           <%= image_tag item.image.url(:medium), {class: "menu_cart_img"} %>
           <!-- <img src="http://whatscookingamerica.net/History/RockyMtnOysters4.jpg" alt="Mountain View" style="width:auto;height:45%"> -->
+          <% end %>
           <div class="caption">
             <h4> <%= item.name %> </h4>
             <p class="item_description"> <%= item.description %></p>
@@ -32,6 +34,7 @@
   <% end %>
 
 <% if current_user && current_user.verify?("admin", @restaurant) %>
+  <%= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) %>
   <%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %>
   <%= link_to "Create New Restaurant Item", new_restaurant_item_path(@restaurant) %>
   <%= link_to "Create New Category", new_restaurant_category_path(@restaurant) %>
