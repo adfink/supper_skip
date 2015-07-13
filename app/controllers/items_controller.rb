@@ -21,10 +21,10 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
 
     if @item.update(item_params)
-      redirect_to restaurant_item_path(@restaurant, @item), notice: "Category Updated"
+      redirect_to restaurant_item_path(@restaurant, @item), notice: "Item Updated"
     else
       flash.now[:errors] = @item.errors.full_messages.join(", ")
-      render :new
+      render :edit
     end
   end
 
