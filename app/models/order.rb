@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
   has_many :order_items
   has_many :items, through: :order_items
 
-  enum status: %w(ordered paid ready_for_preparation cancelled in_preparation out_for_delivery ready_for_pickup completed)
+  enum status: %w(ordered paid ready_for_preparation cancelled in_preparation out_for_delivery completed)
 
   aasm :column => :status, :enum => true do
     state :ordered, :initial => true
@@ -40,12 +40,8 @@ class Order < ActiveRecord::Base
       transitions from: :in_preparation, to: :out_for_delivery
     end
 
-    event :pickup do
-      transitions from: :in_preparation, to: :ready_for_pickup
-    end
-
     event :complete do
-      transitions from: [:out_for_delivery, :ready_for_pickup], to: :completed
+      transitions from: :out_for_delivery, to: :completed
     end
   end
 
@@ -61,8 +57,6 @@ class Order < ActiveRecord::Base
         self.prepare!
       when 'deliver'
         self.deliver!
-      when 'pickup'
-        self.pickup!
       when 'complete'
         self.complete!
     end
