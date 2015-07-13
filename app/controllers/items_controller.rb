@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :load_restaurant, only: [:new, :create]
+  before_action :load_restaurant
 
   def index
   end
@@ -24,6 +24,21 @@ class ItemsController < ApplicationController
     end
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+
+    if @item.update(item_params)
+      redirect_to restaurant_item_path(@restaurant, @item), notice: "Item Updated"
+    else
+      flash.now[:errors] = @item.errors.full_messages.join(", ")
+      render :edit
+    end
+  end
+
   private
   def item_params
     params.require(:item).permit(:name, :description, :price)
@@ -32,4 +47,5 @@ class ItemsController < ApplicationController
   def load_restaurant
     @restaurant = Restaurant.find_by(display_name: params[:restaurant_id])
   end
+
 end
