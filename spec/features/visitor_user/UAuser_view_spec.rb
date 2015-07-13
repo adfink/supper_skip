@@ -5,11 +5,10 @@ require 'capybara/rspec'
 
 describe 'the user view', type: :feature do
 
-  before do
-    @user = user_with({email_address: 'John2@example.com'})
-    @user.save
-    visit categories_path
-  end
+  let(:user) { @user = User.create(full_name: "Tom Petty",
+                           screen_name: "Tom",
+                           email_address: "tom@petty.com",
+                           password: "freefallin" ) }
 
     describe 'authentication', type: :feature do
       it 'can login' do
@@ -46,7 +45,7 @@ describe 'the user view', type: :feature do
 
     describe 'cart interaction', type: :feature do
       it 'returns to shopping after opening cart' do
-        visit '/categories'
+        visit '/'
         page.find("#cart_btn").click
         page.find("#continue_shopping_btn").click
         end
@@ -93,7 +92,7 @@ describe 'the user view', type: :feature do
 
       it 'can not proceed to checkout' do
         create_item_associated_with_a_category
-        visit '/categories'
+        visit '/'
         page.find('#cart_button').click
         click_on('cart')
         click_on('check out')
@@ -102,7 +101,7 @@ describe 'the user view', type: :feature do
 
       it 'removes item from cart' do
         create_item_associated_with_a_category
-        visit '/categories'
+        visit '/'
         page.find('#cart_button').click
         click_on('cart')
         expect(page).to have_content('dandelion salad')
@@ -113,7 +112,7 @@ describe 'the user view', type: :feature do
 
       it "changes number in quantity field" do
         create_item_associated_with_a_category
-        visit '/categories'
+        visit '/'
         page.find('#cart_button').click
         click_on('cart')
         expect(page).to have_content('1')
