@@ -1,0 +1,14 @@
+<h1> Edit Item </h1>
+
+<%= form_for([@restaurant, @item]) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %><br>
+
+  <%= f.label :price %>
+  <%= f.text_area :price %><br>
+
+  <%= f.submit "Edit Item" %>
+<% end %>
