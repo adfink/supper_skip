@@ -1,8 +1,0 @@
-<h1> Choose an item or click create </h1>
-
-<div class='btn btn-default'><%= link_to "Create", new_admin_item_path %></div>
-<% @items.each do |item| %>
-  <p>
-  <h3><%= link_to item.name, edit_admin_item_path(item) %></h3>
-  </p>
-<% end %>

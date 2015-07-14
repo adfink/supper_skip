@@ -74,8 +74,8 @@ restaurant5.items.create([
 
 order1  = Order.create(status: 'ordered',     user_id: 4)
 order2  = Order.create(status: 'ordered',     user_id: 4)
-order3  = Order.create(status: 'canceled',    user_id: 4)
-order4  = Order.create(status: 'canceled',    user_id: 4)
+order3  = Order.create(status: 'cancelled',    user_id: 4)
+order4  = Order.create(status: 'cancelled',    user_id: 4)
 order5  = Order.create(status: 'paid',        user_id: 4)
 order6  = Order.create(status: 'paid',        user_id: 4)
 order7  = Order.create(status: 'completed',   user_id: 4)
