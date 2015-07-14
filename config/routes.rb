@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :items
     resources :orders
     resources :categories
+    resources :user_roles, only: [:new, :index, :create]
   end
 
   resources :addresses
