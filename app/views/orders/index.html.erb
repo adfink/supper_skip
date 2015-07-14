@@ -8,6 +8,7 @@
   <tr>
     <td class="tg-e3zv">Order #</td>
     <td class="tg-e3zv">Order created</td>
+    <td class="tg-e3zv">Update Status</td>
     <td class="tg-e3zv">Status</td>
     <td class="tg-e3zv">Customer</td>
   </tr>
@@ -15,7 +16,15 @@
   <tr class = 'orders_smorders'>
       <td class="tg-031e" ><%= link_to order.id, restaurant_order_path(@restaurant, order) %></td>
       <td class="tg-031e"><%= order.created_at.strftime("%d %b. %Y") %></td>
-      <td class="tg-031e"><%= order.status %></td>
+      <td class="tg-031e">
+        <%= link_to "Mark As Paid", restaurant_order_path(@restaurant, order, order: {status: 'pay'}), method: 'put' if order.may_pay? %>
+        <%= link_to "Ready For Preparation", restaurant_order_path(@restaurant, order, order: {status: 'ready'}), method: 'put' if order.may_ready? %>
+        <%= link_to "Cancel", restaurant_order_path(@restaurant, order, order: {status: 'cancel'}), method: 'put' if order.may_cancel? %>
+        <%= link_to "In Preparation", restaurant_order_path(@restaurant, order, order: {status: 'prepare'}), method: 'put' if order.may_prepare? %>
+        <%= link_to "Out For Delivery", restaurant_order_path(@restaurant, order, order: {status: 'deliver'}), method: 'put' if order.may_deliver? %>
+        <%= link_to "Mark As Completed", restaurant_order_path(@restaurant, order, order: {status: 'complete'}), method: 'put' if order.may_complete? %>
+      </td>
+      <td class="tg-031e"><%= order.make_status_readable %></td>
       <td class="tg-031e"><%= order.online_order.user.full_name %></td>
     <% end %>
   </tr>

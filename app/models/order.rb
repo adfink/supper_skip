@@ -17,7 +17,6 @@ class Order < ActiveRecord::Base
     state :cancelled
     state :in_preparation
     state :out_for_delivery
-    state :ready_for_pickup
     state :completed
 
     event :pay do
@@ -73,5 +72,9 @@ class Order < ActiveRecord::Base
 
   def total
     subtotal + tax
+  end
+
+  def make_status_readable
+    self.status.gsub("_", " ").capitalize
   end
 end

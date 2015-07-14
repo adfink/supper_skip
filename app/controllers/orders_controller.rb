@@ -40,9 +40,21 @@ class OrdersController < ApplicationController
   end
 
   def update
+    @order = Order.find(params[:id])
+
+    if @order.update_status(order_params)
+      redirect_to restaurant_orders_path(@restaurant), notice: "Order status updated."
+    else
+      redirect_to restaurant_orders_path(@restaurant), alert: "Order status update failed."
+    end
   end
 
   private
+
+  def order_params
+    params.require(:order).permit(:status)
+  end
+
   def authenticate_user
     this_dude = Permissions.new(current_user)
     unless this_dude.can_edit_restaurant?(@restaurant)
@@ -62,6 +74,4 @@ class OrdersController < ApplicationController
       redirect_to :root
     end
   end
-
-
 end
