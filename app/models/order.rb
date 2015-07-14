@@ -1,4 +1,6 @@
 class Order < ActiveRecord::Base
+  include AASM
+
   belongs_to :online_order
   belongs_to :restaurant
   belongs_to :user
@@ -6,20 +8,61 @@ class Order < ActiveRecord::Base
   has_many :order_items
   has_many :items, through: :order_items
 
-  validates :status, inclusion: {in: %w(paid completed canceled ordered)}
+  enum status: %w(ordered paid ready_for_preparation cancelled in_preparation out_for_delivery completed)
 
-  scope :paid,      -> { where(status: "paid") }
-  scope :completed, -> { where(status: "completed") }
-  scope :canceled,  -> { where(status: 'canceled') }
-  scope :ordered,   -> { where(status: 'ordered')}
+  aasm :column => :status, :enum => true do
+    state :ordered, :initial => true
+    state :paid
+    state :ready_for_preparation
+    state :cancelled
+    state :in_preparation
+    state :out_for_delivery
+    state :completed
 
-  def self.valid_statuses
-    ['paid', 'completed', 'canceled', 'ordered']
+    event :pay do
+      transitions from: :ordered, to: :paid
+    end
+
+    event :ready do
+      transitions from: :paid, to: :ready_for_preparation
+    end
+
+    event :cancel do
+      transitions from: [:ordered, :paid, :ready_for_preparation], to: :cancelled
+    end
+
+    event :prepare do
+      transitions from: :ready_for_preparation, to: :in_preparation
+    end
+
+    event :deliver do
+      transitions from: :in_preparation, to: :out_for_delivery
+    end
+
+    event :complete do
+      transitions from: :out_for_delivery, to: :completed
+    end
+  end
+
+  def update_status(params)
+    case params[:status]
+      when 'pay'
+        self.pay!
+      when 'ready'
+        self.ready!
+      when 'cancel'
+        self.cancel!
+      when 'prepare'
+        self.prepare!
+      when 'deliver'
+        self.deliver!
+      when 'complete'
+        self.complete!
+    end
   end
 
   def subtotal
-    # binding.pry
-    line_totals = order_items.map {|order_item| order_item.line_total}
+    line_totals = order_items.map { |order_item| order_item.line_total }
     line_totals.reduce(:+)
   end
 
@@ -31,4 +74,7 @@ class Order < ActiveRecord::Base
     subtotal + tax
   end
 
+  def make_status_readable
+    self.status.gsub("_", " ").capitalize
+  end
 end
