@@ -23,7 +23,7 @@ describe 'Managing orders', type: :feature do
 
     xit "can access the orders page for their restaurant" do
       visit restaurant_path(@restaurant_a)
-      save_and_open_page
+      # save_and_open_page
       click_on "Restaurant Order History"
 
       expect(page.current_path).to eq(restaurant_orders_path(@restaurant_a))
