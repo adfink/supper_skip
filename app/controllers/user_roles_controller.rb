@@ -25,7 +25,8 @@ class UserRolesController < ApplicationController
       # flash[:notice] = "that didn't work"
     else
      new_staff = User.create(full_name:"place_holder_name", email_address:email, password: "password")
-     new_staff.send_email
+     NotificationMailer.staff_registration_email(email).deliver
+      redirect_to restaurant_user_roles_path(@restaurant)
     end
 
     # grab on to the email address and the role selected
@@ -43,6 +44,8 @@ class UserRolesController < ApplicationController
   def user_role_params
     params.require(:user_role).permit(:user_id, :role_id, :restaurant_id)
   end
+
+
 
 
 end

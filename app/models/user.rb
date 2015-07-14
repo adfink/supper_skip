@@ -16,5 +16,4 @@ class User < ActiveRecord::Base
     user_roles.where(restaurant_id: restaurant.id, role_id: role.id).any?
   end
 
-
 end
