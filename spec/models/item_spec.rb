@@ -15,11 +15,6 @@ end
     expect(item).to_not be_valid
   end
 
-  it 'will not create an item if it does not have a description of at least 25 characters' do
-    item.description = "Hello"
-    expect(item).to_not be_valid
-  end
-
   it 'will not create an item if it does not have a price of greater than zero' do
     item.price = -5
     expect(item).to_not be_valid

@@ -4,14 +4,12 @@
 <div class="row">
   <% @addresses.each do |a| %>
 
-
-
-      <div <div class="col-sm-1 col-md-3 address_buttons">
+      <div class="col-sm-1 col-md-3 address_buttons">
          <%= a.street_address %>
          <%= a.city %>,
          <%= a.state %>
          <%= a.zip %>
-         <%= form_tag orders_path, method: :post do %>
+         <%= form_tag user_online_orders_path(current_user), method: :post do %>
          <%= hidden_field_tag :address, a.id %>
            <%= button_tag(:class => "btn btn-primary btn-sm", :id => "cart_button") do %>
               use this address <span class="glyphicon glyphicon-shopping-cart" ></span>
@@ -32,7 +30,7 @@
 
 
 <%= form_tag new_address_path, method: :get do %>
-<%= button_tag(:class => "btn btn-success btn-lg", :id => "cart_button") do %>
-Enter a New Address <span class="glyphicon glyphicon-shopping-cart" ></span>
-<% end %>
+  <%= button_tag(:class => "btn btn-success btn-lg", :id => "cart_button") do %>
+    Enter a New Address <span class="glyphicon glyphicon-shopping-cart" ></span>
+  <% end %>
 <% end %>
