@@ -20,8 +20,7 @@ describe UsersController, :type => :controller do
                            password: 'jojojojo',
                            password_confirmation: 'jojojojo',
                            role: 'admin' }
-    end.to change(User, :count).by(1)
-    # response.should_not be_redirect
-    User.last.role.should be_nil
+    end
+    User.count.should be(0)
   end
 end

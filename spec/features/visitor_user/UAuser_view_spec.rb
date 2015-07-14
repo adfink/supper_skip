@@ -50,7 +50,7 @@ describe 'the user view', type: :feature do
       click_on("Toggle navigation")
       find('#cart').click
 
-      click_on('continue shopping')
+      click_on('Continue Shopping')
 
       expect(current_path).to eq(restaurants_path)
     end
