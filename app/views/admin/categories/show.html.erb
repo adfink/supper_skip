@@ -1,7 +1,0 @@
-<h1> <%= @category.name %> </h1>
-<% @category.items.each do |item| %>
-<p>
-    <h3><%= link_to item.name, edit_admin_item_path(item) %></h3>
-    <%= image_tag item.image.url(:thumb) %>
-  </p>
-<% end %>
