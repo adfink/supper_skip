@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   put 'update_quantity',  to: 'carts#update_quantity',as: 'update_quantity'
 
   resources :users do
-    resources :online_orders, only: [:index, :show, :create, :update]
+    resources :online_orders, only: [:index, :show, :new, :create, :update]
   end
 
   get    'login',  to: 'sessions#new'
