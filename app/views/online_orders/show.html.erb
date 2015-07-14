@@ -1,13 +1,15 @@
- <% @online_order.orders.each do |order| %>
-    <h1>Order details for: <%= order.restaurant.name %></h1>
-
+<h1>Order Details</h1>
+<table class="tg">
+  <tr>
+    <th class="tg-e3zv">Name: <br>Email: </th>
+    <th class="tg-031e" colspan="3"><%= @online_order.user.full_name %><br>
+      <%= @online_order.user.email_address %></th>
+  </tr>
+  <br>
+  <% @online_order.orders.each do |order| %>
     <table class="tg">
       <tr>
-        <th class="tg-e3zv">Name: <br>Email: <br>Order status: <br>Order created: <br>Last Updated: </th>
-        <th class="tg-031e" colspan="3"><%= order.user.full_name %><br>
-                                        <%= order.user.email_address %><br>
-                                        <%= order.user.created_at.strftime("%d %b. %Y at %l:%M %p") %><br>
-                                        <%= order.updated_at.strftime("%d %b. %Y at %l:%M %p") %></th>
+        <th class="tg-031e" colspan="6" style="text-align:center;"><%= order.restaurant.name %></th>
       </tr>
       <tr>
         <td class="tg-e3zv">Item</td>
@@ -15,14 +17,15 @@
         <td class="tg-e3zv">Quantity</td>
         <td class="tg-e3zv">Quantity Price</td>
       </tr>
-      <% order.order_items.each do |order_item| %>
+
         <tr>
-          <td class="tg-031e"><%= link_to order_item.item.name, restaurant_item_path(order_item.item.restaurant, order_item.item) %></td>
-          <td class="tg-031e"><%= number_to_currency(order_item.item.price) %></td>
-          <td class="tg-031e"><%= order_item.quantity %></td>
-          <td class="tg-031e"><%= order_item.line_total %></td>
+          <% order.order_items.each do |order_item| %>
+            <td class="tg-031e"><%= link_to order_item.item.name, restaurant_item_path(order_item.item.restaurant, order_item.item) %></td>
+            <td class="tg-031e"><%= number_to_currency(order_item.item.price) %></td>
+            <td class="tg-031e"><%= order_item.quantity %></td>
+            <td class="tg-031e"><%= order_item.line_total %></td>
+        </tr>
       <% end %>
-      </tr>
       <tr>
         <td class="tg-0ord" colspan="3">Sub-total: </td>
         <td class="tg-031e"><%= number_to_currency(order.subtotal) %></td>
@@ -35,6 +38,15 @@
         <td class="tg-0ord" colspan="3">Total: </td>
         <td class="tg-e3zv"><%= number_to_currency(order.total) %></td>
       </tr>
-    </table>
-   </div>
- <% end %>
+      <tr>
+        <td class="tg-031e" colspan="6" style="text-align: right;">Status: <%= order.make_status_readable %></td>
+      </tr>
+      <tr>
+        <td class="tg-031e" colspan="6" style="text-align: right;">
+          <%= link_to "Cancel", user_online_order_path(@online_order.user, @online_order, order: {status: 'cancel', id: order.id}), method: 'put' if order.may_cancel? %>
+        </td>
+      </tr>
+  </table>
+  </table>
+  <% end %>
+  </div>

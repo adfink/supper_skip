@@ -1,6 +1,6 @@
 class OnlineOrdersController < ApplicationController
   before_action :authenticate_user
-  before_action :set_online_order, only: [:show]
+  before_action :set_online_order, only: [:show, :update]
 
   def index
     @online_orders = current_user.online_orders
@@ -32,10 +32,15 @@ class OnlineOrdersController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def update
+    user = User.find(params[:user_id])
+    order = Order.find(params[:order][:id])
+
+    if order.update_status(params[:order])
+      redirect_to user_online_order_path(user, @online_order), notice: "Order Status Updated!"
+    else
+      redirect_to user_online_order_path(user, @online_order), alert: "Order Status Update Failed."
+    end
   end
 
   private
@@ -48,6 +53,6 @@ class OnlineOrdersController < ApplicationController
   end
 
   def set_online_order
-      @online_order = current_user.online_orders.find(params[:id])
+    @online_order = current_user.online_orders.find(params[:id])
   end
 end
