@@ -8,6 +8,7 @@ class UserRolesController < ApplicationController
   end
 
   def index
+    # binding.pry
     @staff_roles = UserRole.where(restaurant_id:@restaurant.id)
   end
 
@@ -17,14 +18,17 @@ class UserRolesController < ApplicationController
     possible_staff = User.find_by(email_address: email )
 
     if possible_staff
-      restaurant = Restaurant.find_by(display_name:params[:restaurant_id])
-      UserRole.create(restaurant_id: restaurant.id, user_id: possible_staff.id, role_id:params[:user_role][:role_id])
+      # binding.pry
+      # restaurant = Restaurant.find_by(display_name:params[:restaurant_id])
+      UserRole.create(restaurant_id: @restaurant.id, user_id: possible_staff.id, role_id:params[:user_role][:role_id])
       redirect_to restaurant_user_roles_path(@restaurant)
       flash[:notice] = "you just hired a new staff person"
       # render :new
       # flash[:notice] = "that didn't work"
     else
+      # binding.pry
      new_staff = User.create(full_name:"place_holder_name", email_address:email, password: "password")
+     UserRole.create(restaurant_id: @restaurant.id, user_id: new_staff.id, role_id:params[:user_role][:role_id])
      NotificationMailer.staff_registration_email(email).deliver
       redirect_to restaurant_user_roles_path(@restaurant)
     end
