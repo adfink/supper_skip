@@ -12,13 +12,14 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    category = Category.new(category_params)
-    category.restaurant_id = @restaurant.id
+    @category = Category.new(category_params)
+    @category.restaurant_id = @restaurant.id
 
-    if category.save
+    if @category.save
+      flash[:success] = 'Category was successfully created.'
       redirect_to @restaurant
     else
-      flash.now[:errors] = category.errors.full_messages.join(", ")
+      flash.now[:errors] = @category.errors.full_messages.join(", ")
       render :new
     end
   end
