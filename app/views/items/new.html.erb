@@ -1,14 +1,5 @@
-<h1> Create Your New Item </h1>
+<div id="individual-item">
+  <h1> Creating a New Item </h1>
 
-<%= form_for ([@restaurant, @item]) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %><br>
-
-  <%= f.label :description %>
-  <%= f.text_field :description %><br>
-
-  <%= f.label :price %>
-  <%= f.text_field :price %><br>
-
-  <%= f.submit "Create Item" %>
-<% end %>
+  <%= render partial: "form" %>
+</div>
