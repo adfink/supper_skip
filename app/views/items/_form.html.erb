@@ -1,16 +1,18 @@
-<div id="create-new-item">
+<div class="thumbnail_index">
 
   <%= form_for ([@restaurant, @item]) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %><br>
-
-    <%= f.label :description %>
-    <%= f.text_field :description %><br>
-
-    <%= f.label :price %>
-    <%= f.text_field :price %><br>
 
     <div class="field">
+
+      <%= f.label :name %>
+      <%= f.text_field :name %><br>
+
+      <%= f.label :description %>
+      <%= f.text_area :description %><br>
+
+      <%= f.label :price %>
+      <%= f.text_field :price %><br>
+
       <%= f.label :image, "Attach an Image" %>
       <%= f.file_field :image %> <br>
 

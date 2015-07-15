@@ -1,14 +1,23 @@
 <h1> Log In </h1>
 
-<%= form_tag login_path do %>
-  <%= label_tag :email_address %>
-  <%= text_field_tag :email_address %>
-  <br>
-  <%= label_tag :password %>
-  <%= password_field_tag :password%>
-  <br>
-  <%= submit_tag value="Log In" %>
-<% end %>
+<div class="thumbnail_index">
+  <%= form_tag login_path do %>
 
-<p>New user? <%= link_to "Sign up now!", new_user_path %></p>
+    <div class="field">
+      <%= label_tag :email_address %>
+      <%= text_field_tag :email_address %>
+    </div><br>
 
+    <div class="field">
+      <%= label_tag :password %>
+      <%= password_field_tag :password%>
+    </div><br>
+
+    <div class="field">
+      <%= submit_tag value="Log In" %>
+    </div><br>
+    <% end %>
+
+    <p>New user? <%= link_to "Sign up now!", new_user_path %></p>
+  </div>
+</div>

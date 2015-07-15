@@ -17,11 +17,9 @@
             <!-- <img src="http://whatscookingamerica.net/History/RockyMtnOysters4.jpg" alt="Mountain View" style="width:auto;height:45%"> -->
         <% end %>
         <div class="caption">
-          <h4> <%= link_to item.name, restaurant_item_path(@restaurant, item) %> </h4>
-          <p class="item_description"> <%= item.description %></p>
-          <p>Price: <%= number_to_currency(item.price) %> </p>
+          <h4 id="restaurant-titles"> <%= link_to item.name, restaurant_item_path(@restaurant, item) %> </h4>
+          <p> <%= item.description %></p>
         </div>
-        <div class="button">
           <%= form_tag '/add_item', method: :get do %>
             <%= hidden_field_tag :item_id, item.id  %>
             <%= hidden_field_tag :restaurant_id, @restaurant.id  %>
@@ -29,13 +27,11 @@
               add to cart <span class="glyphicon glyphicon-shopping-cart" ></span>
             <% end %>
           <% end %>
-        </div>
+        <p><%= number_to_currency(item.price) %> </p>
       </div>
     </div>
   <% end %>
 </div>
-
-
 
 <%#= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) if current_user.staff?(@restaurant)%>
 

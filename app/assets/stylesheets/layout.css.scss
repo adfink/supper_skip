@@ -169,9 +169,15 @@ body {
  color: white;
 }
 
-.thumbnail{
- height: 390px;
- width: 100%;
+.thumbnail {
+  height: 390px;
+  width: 100%;
+}
+
+.thumbnail_index {
+  height: 250px;
+  width: 100%;
+}
 
 
 .menu_cart_img {
@@ -189,9 +195,9 @@ body {
 }
 
 .caption {
- min-height: 183px;
+ min-height: 150px;
  overflow: none;
- max-height: 184px;
+ max-height: 151px;
  // border: 5px solid black;
 }
 
@@ -201,8 +207,6 @@ body {
  max-height: 95px;
  min-height: 41px;
  }
-
-}
 
 #menuContent {
  padding-top: 150px;

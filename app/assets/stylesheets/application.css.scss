@@ -18,6 +18,10 @@
 @import "bootstrap";
 
 
+.field {
+  text-align: left;
+}
+
 .form-control {
   width: 250px;
 }
@@ -44,34 +48,45 @@ body {
 
 .nav-pills {
   text-align: center;
-//  margin-left: 13%;
-//  margin-right: 50%;
 }
 
 .nav-pills li {
-  background-color: #999999;
+  background-color: #ffffff;
   margin-bottom: 15px;
   border-radius: 5px;
   opacity: 0.9;
   padding-left: 20px;
   padding-right: 20px;
-  margin-left: 35%;
-  margin-right: auto;
+  margin-right: 15px;
+  margin-left: 30%;
 }
 
 .nav-pills li a {
-  color: white;
+  color: #090909;
 }
+
+.button {
+
+}
+
 
 .thumbnail {
   opacity: 0.8;
-  background-color: #555555;
+  background-color: grey;
+  text-align: center;
+}
+
+.thumbnail_index {
+  opacity: 0.8;
+  background-color: cadetblue;
   text-align: center;
 }
 
 #cart_button {
-  background-color: #999999;
+  background-color: white;
   border-radius: 5px;
+  color: black;
+
 }
 
 .caption p {
@@ -108,11 +123,22 @@ body {
 //}
 
 h1 {
-  color: white;
+  color: #101010;
+  font-family: "PT Sans", sans-serif;
+  background-color: #ffffff;
+  font-size: 60px;
+  opacity: 0.8;
+  text-align: center;
 }
 
 h2 {
   color: white;
+}
+
+h2 a, p {
+  color: white;
+  font-family: "PT Sans", sans-serif;
+  //  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
 }
 
 h3 {
