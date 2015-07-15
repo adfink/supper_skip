@@ -12,6 +12,10 @@
       <p class="item_description"> <%= @item.description %> </p>
       <p class="item_description"> Price: <%= number_to_currency(@item.price) %> </p>
     </div>
+
+    <% if current_user && current_user.verify?("admin", @restaurant) %>
+      <%= link_to "Edit Item", edit_restaurant_item_path(@restaurant, @item) %>
+    <% end %>
     </div>
   </div>
 </div>

@@ -3,9 +3,9 @@ class Restaurant < ActiveRecord::Base
   has_many :items
   has_many :categories
   has_many :orders
+  has_many :user_roles
 
-  validates :name, uniqueness: true,
-    presence: true
+  validates :name, presence: true, uniqueness: true
   validates :display_name, uniqueness: true
 
   def to_param

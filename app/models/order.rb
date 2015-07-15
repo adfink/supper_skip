@@ -1,4 +1,6 @@
 class Order < ActiveRecord::Base
+  include AASM
+
   belongs_to :online_order
   belongs_to :restaurant
   belongs_to :user
@@ -6,20 +8,54 @@ class Order < ActiveRecord::Base
   has_many :order_items
   has_many :items, through: :order_items
 
-  validates :status, inclusion: {in: %w(paid completed canceled ordered)}
+  enum status: %w(ready_for_preparation cancelled in_preparation ready_for_delivery out_for_delivery completed)
 
-  scope :paid,      -> { where(status: "paid") }
-  scope :completed, -> { where(status: "completed") }
-  scope :canceled,  -> { where(status: 'canceled') }
-  scope :ordered,   -> { where(status: 'ordered')}
+  aasm :column => :status, :enum => true do
+    state :ready_for_preparation, :initial => true
+    state :cancelled
+    state :in_preparation
+    state :ready_for_delivery
+    state :out_for_delivery
+    state :completed
 
-  def self.valid_statuses
-    ['paid', 'completed', 'canceled', 'ordered']
+    event :prepare do
+      transitions from: :ready_for_preparation, to: :in_preparation
+    end
+
+    event :cancel do
+      transitions from: :ready_for_preparation, to: :cancelled
+    end
+
+    event :ready do
+      transitions from: :in_preparation, to: :ready_for_delivery
+    end
+
+    event :deliver do
+      transitions from: :ready_for_delivery, to: :out_for_delivery
+    end
+
+    event :complete do
+      transitions from: :out_for_delivery, to: :completed
+    end
+  end
+
+  def update_status(params)
+    case params[:status]
+      when 'prepare'
+        self.prepare!
+      when 'cancel'
+        self.cancel!
+      when 'ready'
+        self.ready!
+      when 'deliver'
+        self.deliver!
+      when 'complete'
+        self.complete!
+    end
   end
 
   def subtotal
-    # binding.pry
-    line_totals = order_items.map {|order_item| order_item.line_total}
+    line_totals = order_items.map { |order_item| order_item.line_total }
     line_totals.reduce(:+)
   end
 
@@ -31,4 +67,7 @@ class Order < ActiveRecord::Base
     subtotal + tax
   end
 
+  def make_status_readable
+    self.status.gsub("_", " ").capitalize
+  end
 end
