@@ -1,0 +1,8 @@
+<ul>
+<% @staff_roles.each do |staff_role| %>
+<ul>
+  <li><%= staff_role.user.full_name %></li>
+  <li><%= staff_role.role.name %></li>
+</ul>
+<% end %>
+</ul>
