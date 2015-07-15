@@ -50,7 +50,6 @@ describe 'the registered user', type: :feature do
     end
 
     it "can place a delivery order" do
-      save_and_open_page
       click_on('Delivery')
 
       click_on "Enter a New Address"
