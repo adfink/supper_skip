@@ -17,19 +17,6 @@
         <td> <%= number_to_currency(cart.line_item_price(item_id, quantity)) %> </td>
       </tr>
     <% end %>
-    <tr>
-      <td>  Subtotal </td>
-      <td>  </td>
-      <td>  </td>
-      <td> <%= number_to_currency(@subtotal) %> </td>
-    </tr>
-
-    <tr>
-      <td>  Tax </td>
-      <td>  </td>
-      <td>  </td>
-      <td> <%= number_to_currency(@tax) %> </td>
-    </tr>
 
     <tr>
       <td>  Total </td>
@@ -38,25 +25,22 @@
       <td> <%= number_to_currency(@total) %> </td>
     </tr>
   </table>
-
-  <h2> Is This Order For Pick Up or Delivery?</h2>
-  <br/>
-  <div>
-    <div class="pickup-delivery-button">
-      <%= form_tag user_online_orders_path(current_user), method: :post do %>
-        <%= button_tag(:class => "btn btn-primary btn-lg", :id => "pickup_btn") do %>
-          Pick Up
-        <% end %>
-
-        <%= link_to "Delivery", addresses_path, class: "btn btn-primary btn-lg", id: "delivery_btn" %>
-
+  <div style="text-align: right;">
+    <%= form_tag charges_path do %>
+    <br>
+    <%= hidden_field_tag :total, @total %>
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-email="<%= current_user.email_address %>"
+            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+            data-description="Credit Card"
+            data-amount=<%= @total * 100 %>></script>
+    <% end %>
+    <br>
+    <%= form_tag restaurants_path, method: :get do %>
+      <%= button_tag(:class => "btn btn-success btn-sm", :id => "continue_shopping_btn") do %>
+        Continue Shopping
       <% end %>
-    </div>
+    <% end %>
   </div>
 </div>
-</br>
-<%= form_tag restaurants_path, method: :get do %>
-  <%= button_tag(:class => "btn btn-success btn-sm", :id => "continue_shopping_btn") do %>
-    continue shopping <span class="glyphicon glyphicon-shopping-cart" ></span>
-  <% end %>
-<% end %>
+
