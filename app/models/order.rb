@@ -8,27 +8,22 @@ class Order < ActiveRecord::Base
   has_many :order_items
   has_many :items, through: :order_items
 
-  enum status: %w(ordered ready_for_preparation cancelled in_preparation ready_for_delivery out_for_delivery completed)
+  enum status: %w(ready_for_preparation cancelled in_preparation ready_for_delivery out_for_delivery completed)
 
   aasm :column => :status, :enum => true do
-    state :ordered, :initial => true
-    state :ready_for_preparation
+    state :ready_for_preparation, :initial => true
     state :cancelled
     state :in_preparation
     state :ready_for_delivery
     state :out_for_delivery
     state :completed
 
-    event :pay do
-      transitions from: :ordered, to: :ready_for_preparation
+    event :prepare do
+      transitions from: :ready_for_preparation, to: :in_preparation
     end
 
     event :cancel do
-      transitions from: [:ordered, :ready_for_preparation], to: :cancelled
-    end
-
-    event :prepare do
-      transitions from: :ready_for_preparation, to: :in_preparation
+      transitions from: :ready_for_preparation, to: :cancelled
     end
 
     event :ready do
@@ -46,12 +41,10 @@ class Order < ActiveRecord::Base
 
   def update_status(params)
     case params[:status]
-      when 'pay'
-        self.pay!
-      when 'cancel'
-        self.cancel!
       when 'prepare'
         self.prepare!
+      when 'cancel'
+        self.cancel!
       when 'ready'
         self.ready!
       when 'deliver'

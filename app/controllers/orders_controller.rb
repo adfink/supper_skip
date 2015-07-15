@@ -41,8 +41,10 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
+    order_assigner = StaffOrderAssigner.new(@order, current_user, params[:order][:status])
 
     if @order.update_status(order_params)
+      order_assigner.check_order_status
       redirect_to restaurant_orders_path(@restaurant), notice: "Order status updated."
     else
       redirect_to restaurant_orders_path(@restaurant), alert: "Order status update failed."
@@ -56,8 +58,8 @@ class OrdersController < ApplicationController
   end
 
   def authenticate_user
-    this_dude = Permissions.new(current_user)
-    unless this_dude.can_edit_restaurant?(@restaurant)
+    user = Permissions.new(current_user)
+    unless user.can_edit_restaurant?(@restaurant)
       flash[:notice] = "get lost, #{current_user.full_name}!"
       redirect_to root_path
     end
