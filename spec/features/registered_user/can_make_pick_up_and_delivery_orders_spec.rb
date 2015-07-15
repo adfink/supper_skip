@@ -31,7 +31,13 @@ describe 'the registered user', type: :feature do
 
   it 'does not create a duplicate order if user clicks back button after order confirmation' do
     expect(OnlineOrder.all.count).to eq(0)
-    click_on('Pick Up')
+    save_and_open_page
+    click_on('Delivery')
+    click_on "Enter a New Address"
+    fill_in('Street address', with: "123 Mountain Street")
+    select "Colorado", :from => "State"
+    fill_in('Zip', with: '80228')
+    click_button('Create Address')
 
     expect(page).to have_content("Thank You For Ordering")
     expect(OnlineOrder.all.count).to eq(1)
@@ -43,12 +49,6 @@ describe 'the registered user', type: :feature do
   end
 
   describe 'can place a', type: :feature do
-
-    it "pick up order" do
-      click_on('Pick Up')
-
-      expect(page).to have_content("Thank You For Ordering")
-    end
 
     it "delivery order" do
       click_on('Delivery')
