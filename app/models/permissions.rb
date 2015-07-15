@@ -1,5 +1,4 @@
 class Permissions
-
   def initialize(user)
     @user = user
   end

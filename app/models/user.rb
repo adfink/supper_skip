@@ -33,4 +33,8 @@ class User < ActiveRecord::Base
     role = Role.find_by(name: role)
     user_roles.where(restaurant_id: restaurant.id, role_id: role.id).any?
   end
+
+  def my_order?(order)
+    self.id == order.staff_id
+  end
 end

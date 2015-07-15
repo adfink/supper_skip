@@ -16,11 +16,11 @@
       <td class="tg-031e">
         <% if current_user.cook?(@restaurant) %>
           <%= link_to "In Preparation", restaurant_order_path(@restaurant, order, order: {status: 'prepare'}), method: 'put' if order.may_prepare? %>
-          <%= link_to "Ready For Delivery", restaurant_order_path(@restaurant, order, order: {status: 'ready'}), method: 'put' if order.may_ready? %>
+          <%= link_to "Ready For Delivery", restaurant_order_path(@restaurant, order, order: {status: 'ready'}), method: 'put' if order.may_ready? && current_user.my_order?(order) %>
         <% end %>
         <% if current_user.delivery_person?(@restaurant) %>
           <%= link_to "Out For Delivery", restaurant_order_path(@restaurant, order, order: {status: 'deliver'}), method: 'put' if order.may_deliver? %>
-          <%= link_to "Mark As Completed", restaurant_order_path(@restaurant, order, order: {status: 'complete'}), method: 'put' if order.may_complete? %>
+          <%= link_to "Mark As Completed", restaurant_order_path(@restaurant, order, order: {status: 'complete'}), method: 'put' if order.may_complete? && current_restaurant.my_order?(order)%>
         <% end %>
         <%= link_to "Cancel", restaurant_order_path(@restaurant, order, order: {status: 'cancel'}), method: 'put' if order.may_cancel? %>
       </td>
