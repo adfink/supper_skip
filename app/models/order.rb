@@ -54,17 +54,8 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def subtotal
-    line_totals = order_items.map { |order_item| order_item.line_total }
-    line_totals.reduce(:+)
-  end
-
-  def tax
-    subtotal * ".05".to_f
-  end
-
   def total
-    subtotal + tax
+    order_items.map { |order_item| order_item.line_total }.reduce(:+)
   end
 
   def make_status_readable

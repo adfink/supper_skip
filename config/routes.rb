@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :addresses
+  resources :charges
 
   get 'code', to: 'welcome#code'
 
