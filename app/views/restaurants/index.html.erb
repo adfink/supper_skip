@@ -1,9 +1,13 @@
+
+
 <% if current_user %>
   <%= link_to "Register New Restaurant", new_restaurant_path %>
+<% end %><br>
+
+
+<% @restaurants.each do |restaurant|  %>
+  <h3><%= link_to restaurant.name, restaurant %></h3>
+  <p class="item_description"> <%= restaurant.description %> </p>
+  <%= link_to "Shop!", restaurant %>
 <% end %>
 
-<ul>
-  <% @restaurants.each do |restaurant|  %>
-    <li><%= link_to restaurant.name, restaurant %></li>
-  <% end %>
-</ul>

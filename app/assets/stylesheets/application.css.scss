@@ -16,3 +16,163 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
+.form-control {
+  width: 250px;
+}
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.mix-target {
+  display: none;
+}
+
+body {
+  background-color: #008080;
+  background-image: image-url("wood-background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.main-headers {
+  color: white;
+  font-weight: bolder;
+}
+
+.nav-pills {
+  text-align: center;
+//  margin-left: 13%;
+//  margin-right: 50%;
+}
+
+.nav-pills li {
+  background-color: #999999;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  opacity: 0.9;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 35%;
+  margin-right: auto;
+}
+
+.nav-pills li a {
+  color: white;
+}
+
+.thumbnail {
+  opacity: 0.8;
+  background-color: #555555;
+  text-align: center;
+}
+
+#cart_button {
+  background-color: #999999;
+  border-radius: 5px;
+}
+
+.caption p {
+  color: white;
+}
+
+.navbar-default .navbar-nav > li > a {
+  font-size: 1.25em;
+}
+
+.btn-success {
+  color: white;
+  background-color: #FF7F00;
+}
+
+//.navbar-brand {
+//  position: absolute;
+//  width: 100%;
+//  left: 0;
+//  top: 0;
+//  text-align: center;
+//  margin: auto;
+//  padding-top: 5px;
+//}
+//
+//.navbar-nav {
+//  margin-bottom: 35px;
+//}
+//
+//.navbar-default {
+//  background-color: rgba(255,255,255,0);
+//  border-color: rgba(255,255,255,0);
+//  margin-bottom: 75px;
+//}
+
+h1 {
+  color: white;
+}
+
+h2 {
+  color: white;
+}
+
+h3 {
+  color: white;
+}
+
+h4 a {
+  color: white;
+}
+
+p {
+  color: white;
+}
+
+#individual-item {
+  text-align: center;
+  color: white;
+}
+
+#create-new-item {
+  text-align: left;
+  color: black;
+}
+
+.field-button {
+  text-align: center;
+  color: black;
+}
+
+.field {
+  color: white;
+}
+
+.field-user {
+  color: black;
+}
+
+.dashboard-header h1, h2, h3, h4, ul, li{
+  color:white;
+}
+
+.dashboard-header a {
+  color: lightgrey;
+  text-decoration: underline;
+}
+
+.table.table-hover.table-bordered {
+  background-color: white;
+}
+
+.table.table-hover.table-bordered a {
+  background-color: white;
+  color:black;
+}
+
+.dropdown-menu {
+  color: black;
+}
+
+#create-new-user {
+  color: white;
+}
+
