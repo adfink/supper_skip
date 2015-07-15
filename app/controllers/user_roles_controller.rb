@@ -26,10 +26,11 @@ class UserRolesController < ApplicationController
       # render :new
       # flash[:notice] = "that didn't work"
     else
-      # binding.pry
-     new_staff = User.create(full_name:"place_holder_name", email_address:email, password: "password")
+      random_password = (0...8).map { (65 + rand(26)).chr }.join
+        # binding.pry
+        new_staff = User.create(full_name:email, email_address:email, password: random_password)
      @user_role = UserRole.create(restaurant_id: @restaurant.id, user_id: new_staff.id, role_id:params[:user_role][:role_id])
-     NotificationMailer.staff_registration_email(email, @user_role, @restaurant).deliver
+     NotificationMailer.staff_registration_email(email, @user_role, @restaurant, random_password).deliver
       redirect_to restaurant_user_roles_path(@restaurant)
     end
 
