@@ -56,8 +56,8 @@ class OrdersController < ApplicationController
   end
 
   def authenticate_user
-    this_dude = Permissions.new(current_user)
-    unless this_dude.can_edit_restaurant?(@restaurant)
+    user = Permissions.new(current_user)
+    unless user.can_edit_restaurant?(@restaurant)
       flash[:notice] = "get lost, #{current_user.full_name}!"
       redirect_to root_path
     end
