@@ -33,7 +33,8 @@
             </div>
   <% end %>
 
-<%= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) if current_user.staff?(@restaurant)%>
+
+<%#= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) if current_user.staff?(@restaurant)%>
 
 <% if current_user && current_user.admin?(@restaurant) %>
   <%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %>

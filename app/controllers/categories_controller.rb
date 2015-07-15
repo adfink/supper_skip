@@ -54,7 +54,7 @@ class CategoriesController < ApplicationController
     user = Permissions.new(current_user)
 
     unless user.can_edit_restaurant?(@restaurant)
-      flash[:notice] = "get lost, #{current_user.name}!"
+      flash[:notice] = "Get lost, #{current_user.full_name}!"
       redirect_to root_path
     end
   end
