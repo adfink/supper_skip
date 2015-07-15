@@ -8,8 +8,6 @@ RSpec.describe "authenicated user" do
       @restaurant_a = owner1.restaurants.create(name: 'Edible Objects', description: 'Tasty', display_name:"edible")
       @restaurant_b = owner1.restaurants.create(name: 'Olive Garden', description: 'Authentic Italian', display_name: "olive-garden")
 
-      # category_a = restaurant_a.category.create(name: "Sweets")
-      # category_b = restaurant_b.category.create(name: "Pastas")
       @item_a = @restaurant_a.items.create(name: 'Organic Matter', description: 'Real good dirtttttttttasdfasdfasdfasdf', price: 20)
       @item_b = @restaurant_b.items.create(name: 'Lasagna', description: 'Definitely not made of plasticasdfasdfasdfa', price: 25)
 
@@ -28,7 +26,16 @@ RSpec.describe "authenicated user" do
       find('#cart').click
 
       click_on('Checkout')
-      click_on('Pick Up')
+      find("button[@type='submit']").click
+
+      visit addresses_path
+      click_on "Enter a New Address"
+      fill_in('City', with: "Denver")
+      fill_in('Street address', with: "123 Mountain Street")
+      select "Colorado", :from => "State"
+      fill_in('Zip', with: '80228')
+      click_button('Create Address')
+      click_on('Use This Address')
     end
 
     it "can view past orders page" do

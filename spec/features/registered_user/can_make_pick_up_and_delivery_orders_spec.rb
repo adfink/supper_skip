@@ -31,7 +31,19 @@ describe 'the registered user', type: :feature do
 
   it 'does not create a duplicate order if user clicks back button after order confirmation' do
     expect(OnlineOrder.all.count).to eq(0)
-    click_on('Pick Up')
+    find("button[@type='submit']").click
+    visit addresses_path
+    click_on "Enter a New Address"
+    fill_in('City', with: "Denver")
+    fill_in('Street address', with: "123 Mountain Street")
+    select "Colorado", :from => "State"
+    fill_in('Zip', with: '80228')
+    click_button('Create Address')
+
+    expect(page).to have_content("Please Choose an Address")
+    expect(current_path).to eq(addresses_path)
+
+    click_on('Use This Address')
 
     expect(page).to have_content("Thank You For Ordering")
     expect(OnlineOrder.all.count).to eq(1)
@@ -42,41 +54,10 @@ describe 'the registered user', type: :feature do
     expect(OnlineOrder.all.count).to eq(1)
   end
 
-  describe 'can place a', type: :feature do
-
-    it "pick up order" do
-      click_on('Pick Up')
-
-      expect(page).to have_content("Thank You For Ordering")
-    end
-
-    it "delivery order" do
-      click_on('Delivery')
-
-      click_on "Enter a New Address"
-      fill_in('Street address', with: "123 Mountain Street")
-      fill_in('City', with: 'Denver')
-      select "Colorado", :from => "State"
-      fill_in('Zip', with: '80228')
-
-      click_button('Create Address')
-
-      expect(page).to have_content("Please Choose an Address")
-      expect(current_path).to eq(addresses_path)
-    end
-  end
-
-  describe 'when placing a delivery order', type: :feature do
-
-    it 'is prompted to select or create an address' do
-      click_on('Delivery')
-
-      expect(page).to have_content("Please Choose an Address")
-      expect(page).to have_button("Enter a New Address")
-    end
+  describe 'when placing a wrong delivery address', type: :feature do
 
     it 'cannot proceed with any blank address field' do
-      click_on('Delivery')
+      visit addresses_path
 
       click_on "Enter a New Address"
       fill_in('Street address', with: "123 Mountain Street")

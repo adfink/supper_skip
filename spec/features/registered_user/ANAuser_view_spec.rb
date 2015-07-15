@@ -32,15 +32,8 @@ describe 'the user view', type: :feature do
       click_on('Checkout')
     end
 
-    it 'sees an item counter next to cart' do
-      2.times do
-        page.find('#cart').click
-      end
-      expect(page).to have_content('2')
-    end
-
     it 'can delete an address' do
-      click_on('Delivery')
+      visit addresses_path
 
       click_on "Enter a New Address"
       fill_in('Street address', with: "123 Mountain Street")

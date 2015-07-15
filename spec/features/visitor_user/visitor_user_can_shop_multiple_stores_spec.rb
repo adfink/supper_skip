@@ -9,8 +9,6 @@ feature "unregistered user is able to shop items at multiple restaurants" do
       @restaurant_a = owner1.restaurants.create(name: 'Edible Objects', description: 'Tasty', display_name:"edible")
       @restaurant_b = owner1.restaurants.create(name: 'Olive Garden', description: 'Authentic Italian', display_name: "olive-garden")
 
-      # category_a = restaurant_a.category.create(name: "Sweets")
-      # category_b = restaurant_b.category.create(name: "Pastas")
       item_a = @restaurant_a.items.create(name: 'Organic Matter', description: 'Real good dirtttttttttasdfasdfasdfasdf', price: 20)
       item_b = @restaurant_b.items.create(name: 'Lasagna', description: 'Definitely not made of plasticasdfasdfasdfa', price: 25)
 
@@ -55,12 +53,6 @@ feature "unregistered user is able to shop items at multiple restaurants" do
 
       expect(page).to have_content('Lasagna')
       expect(page).to have_content(45)
-
-      click_on('Checkout')
-      click_on('Pick Up')
-
-      expect(page).to have_content('Thank You For Ordering')
-      expect(current_path).to eq("/verification")
     end
 
     it "can shop, sign up and checkout" do
@@ -91,12 +83,6 @@ feature "unregistered user is able to shop items at multiple restaurants" do
       expect(page).to have_content('Lasagna')
       expect(page).to have_content('Organic Matter')
       expect(page).to have_content(45)
-
-      click_on('Checkout')
-      click_on('Pick Up')
-
-      expect(page).to have_content('Thank You For Ordering')
-      expect(current_path).to eq("/verification")
     end
   end
 end
