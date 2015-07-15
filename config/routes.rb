@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root 'home#index'
 
   post 'twilio/voice' => 'twilio#voice'
+  post 'notifications/notify' => 'notifications#notify'
+
 
   resources :restaurants do
     resources :items
