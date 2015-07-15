@@ -1,11 +1,21 @@
 <div id="nav-headers" xmlns="http://www.w3.org/1999/html"><ul class="nav nav-pills">
   <h1> <%= @restaurant.name %></h1>
 
-  <li>
     <% @restaurant.categories.each do |category| %>
       <li><%= link_to category.name, restaurant_category_path(@restaurant, category) %></li>
     <% end %>
-  </li>
+
+    <br>
+    <br>
+    <br>
+
+    <% if current_user && current_user.admin?(@restaurant) %>
+      <li><%= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) if current_user.staff?(@restaurant)%></li>
+      <li><%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %></li>
+      <li><%= link_to "Create New Restaurant Item", new_restaurant_item_path(@restaurant) %></li>
+      <li><%= link_to "Create New Category", new_restaurant_category_path(@restaurant) %></li>
+    <% end %>
+
 </ul></div><br>
 
 <div class="row text-center">
@@ -33,13 +43,7 @@
   <% end %>
 </div>
 
-<%#= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) if current_user.staff?(@restaurant)%>
 
-<% if current_user && current_user.admin?(@restaurant) %>
-  <%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %>
-  <%= link_to "Create New Restaurant Item", new_restaurant_item_path(@restaurant) %>
-  <%= link_to "Create New Category", new_restaurant_category_path(@restaurant) %>
-<% end %>
 
 
 

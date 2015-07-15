@@ -1,23 +1,19 @@
-<div class="thumbnail_index">
+<div class="thumbnail">
 
   <%= form_for ([@restaurant, @item]) do |f| %>
 
     <div class="field">
-
-      <%= f.label :name %>
+      <%= f.label :name %><br>
       <%= f.text_field :name %><br>
 
-      <%= f.label :description %>
+      <%= f.label :description %><br>
       <%= f.text_area :description %><br>
 
-      <%= f.label :price %>
+      <%= f.label :price %><br>
       <%= f.text_field :price %><br>
 
       <%= f.label :image, "Attach an Image" %>
       <%= f.file_field :image %> <br>
-
-      <%#= f.label :status, 'Is Available?' %>
-      <%#= f.check_box :status %><br>
 
       <%= f.label :category_ids, 'Categories' %><br/>
       <%= f.collection_check_boxes(:category_ids, @restaurant.categories.all, :id, :name) %><hr/>

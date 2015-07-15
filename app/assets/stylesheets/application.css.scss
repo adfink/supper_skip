@@ -57,8 +57,11 @@ body {
   opacity: 0.9;
   padding-left: 20px;
   padding-right: 20px;
-  margin-right: 15px;
-  margin-left: 30%;
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+//  margin-top:22%;
+//  margin-bottom:0%;
 }
 
 .nav-pills li a {
@@ -79,6 +82,12 @@ body {
 .thumbnail_index {
   opacity: 0.8;
   background-color: cadetblue;
+  text-align: center;
+}
+
+.thumbnail_form {
+  opacity: 0.8;
+  background-color: grey;
   text-align: center;
 }
 
