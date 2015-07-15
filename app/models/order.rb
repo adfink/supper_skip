@@ -1,6 +1,11 @@
 class Order < ActiveRecord::Base
   include AASM
 
+  validates :status, presence: true
+  validates :user, presence: true
+  validates :restaurant, presence: true
+  validates :online_order, presence: true
+
   belongs_to :online_order
   belongs_to :restaurant
   belongs_to :user
