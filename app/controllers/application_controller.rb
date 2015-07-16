@@ -19,5 +19,4 @@ class ApplicationController < ActionController::Base
       @current_restaurant ||= Restaurant.find(params[:restaurant_id])
     end
   end
-
 end

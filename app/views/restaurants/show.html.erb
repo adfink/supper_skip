@@ -32,14 +32,15 @@
               </div>
             </div>
   <% end %>
+<% if current_user %>
+  <%= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) if current_user.staff?(@restaurant)%>
 
-<%= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) if current_user.staff?(@restaurant)%>
-
-<% if current_user && current_user.admin?(@restaurant) %>
-  <%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %>
-  <%= link_to "Create New Restaurant Item", new_restaurant_item_path(@restaurant) %>
-  <%= link_to "Create New Category", new_restaurant_category_path(@restaurant) %>
-  <%= link_to "Add staff", new_restaurant_user_role_path(@restaurant) %>
+  <% if current_user.admin?(@restaurant) %>
+    <%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %>
+    <%= link_to "Create New Restaurant Item", new_restaurant_item_path(@restaurant) %>
+    <%= link_to "Create New Category", new_restaurant_category_path(@restaurant) %>
+    <%= link_to "Add staff", new_restaurant_user_role_path(@restaurant) %>
+  <% end %>
 <% end %>
 
 
