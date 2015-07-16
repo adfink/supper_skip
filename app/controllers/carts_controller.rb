@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   def show
+    session[:return_to] = request.fullpath
     if cart.items.any?
       @total = Cart.total(session)
     end

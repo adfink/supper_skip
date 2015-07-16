@@ -21,7 +21,7 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <% if session[:user_id] %>
-          <li><%= link_to "My orders", user_online_orders_path(current_user)%></li>
+          <li><%= link_to "My Orders", user_online_orders_path(current_user)%></li>
           <li><%= link_to "My Profile", user_path(current_user)%></li>
           <li><%= link_to "Logout", logout_path, method: :delete %></li>
         <% else %>

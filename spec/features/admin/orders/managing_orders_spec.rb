@@ -11,8 +11,6 @@ describe 'Managing orders', type: :feature do
       @restaurant_a = @owner1.restaurants.create(name: 'Edible Objects', description: 'Tasty', display_name:"edible")
       @restaurant_b = @owner2.restaurants.create(name: 'Olive Garden', description: 'Authentic Italian', display_name: "olive-garden")
 
-      # category_a = restaurant_a.category.create(name: "Sweets")
-      # category_b = restaurant_b.category.create(name: "Pastas")
       @item_a = @restaurant_a.items.create(name: 'Organic Matter', description: 'Real good dirtttttttttasdfasdfasdfasdf', price: 20)
       @item_b = @restaurant_b.items.create(name: 'Lasagna', description: 'Definitely not made of plasticasdfasdfasdfa', price: 25)
 
@@ -23,7 +21,7 @@ describe 'Managing orders', type: :feature do
 
     xit "can access the orders page for their restaurant" do
       visit restaurant_path(@restaurant_a)
-      # save_and_open_page
+
       click_on "Restaurant Order History"
 
       expect(page.current_path).to eq(restaurant_orders_path(@restaurant_a))
