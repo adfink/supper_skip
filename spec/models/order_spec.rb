@@ -6,9 +6,10 @@ RSpec.describe Order, :type => :model do
     user = User.create(full_name: "Justin", email_address: "asdf@asdf.com", password: "password")
     online_order = user.online_orders.create
     restaurant = Restaurant.create(name: 'asdf', user_id: user.id)
-    item = Item.create(name: 'possum pie', description: "delicious, yummy, delicious, yummy, delicious, yummy,delicious, yummy,delicious, yummy,", price: 5, status: "active")
+    category = restaurant.categories.create(name: "Sweets")
+    item = Item.create(name: 'possum pie', description: "delicious, yummy, delicious, yummy, delicious, yummy,delicious, yummy,delicious, yummy,", price: 5, status: "active", categories: [category])
     order_item = OrderItem.new(order_id: 1, item_id: item.id, quantity: 3 )
-    Order.new(order_items: [order_item], restaurant_id: restaurant.id, user_id: user.id, online_order_id: online_order.id)
+    Order.create(order_items: [order_item], restaurant_id: restaurant.id, user_id: user.id, online_order_id: online_order.id)
   end
 
   it 'is valid' do
@@ -37,6 +38,7 @@ RSpec.describe Order, :type => :model do
   end
 
   it 'can calculate a total' do
+    # binding.pry
     expect(order.total).to eq(15)
   end
 end

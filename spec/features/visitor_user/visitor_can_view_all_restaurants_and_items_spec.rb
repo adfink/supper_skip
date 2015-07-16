@@ -5,14 +5,15 @@ feature "any user" do
   context "while not signed in" do
 
     before(:each) do
-      restaurant_a = Restaurant.create(name: 'Edible Objects', description: 'Tasty', display_name: "edible")
-      restaurant_b = Restaurant.create(name: 'Olive Garden', description: 'Authentic Italian', display_name: "olive-garden")
-      # category_a = restaurant_a.category.create(name: "Sweets")
-      # category_b = restaurant_b.category.create(name: "Pastas")
-      item_a = restaurant_a.items.create(name: 'Organic Matter', description: 'Real good dirtttttttttasdfasdfasdfasdf', price: 20)
-      item_b = restaurant_b.items.create(name: 'Lasagna', description: 'Definitely not made of plasticasdfasdfasdfa', price: 25)
+      owner1 = User.create(full_name: "Whitney Houston", email_address: "whit@whit.com", password: "password", screen_name: "whit")
+      @restaurant_a = owner1.restaurants.create(name: 'Edible Objects', description: 'Tasty', display_name:"edible")
+      @restaurant_b = owner1.restaurants.create(name: 'Olive Garden', description: 'Authentic Italian', display_name: "olive-garden")
 
-      user = User.create!(full_name: 'Billy', screen_name: 'Billy', email_address: 'billy@email.com', password: 'password')
+      @category_a = @restaurant_a.categories.create(name: "Sweets")
+      @category_b = @restaurant_b.categories.create(name: "Pastas")
+
+      item_a = @restaurant_a.items.create(name: 'Organic Matter', description: 'Real good dirtttttttttasdfasdfasdfasdf', price: 20, categories: [@category_a])
+      item_b = @restaurant_b.items.create(name: 'Lasagna', description: 'Definitely not made of plasticasdfasdfasdfa', price: 25, categories: [@category_b])
     end
 
 
@@ -25,18 +26,17 @@ feature "any user" do
 
     it "can visit a restaurants items page and view all items" do
       visit restaurants_path
-      click_link "Olive Garden"
-
-      expect(current_path).to eq('/restaurants/olive-garden')
-      expect(page).to have_content("Lasagna")
-      expect(page).to_not have_content("Organic Matter")
-
-      visit restaurants_path
-      click_link "Edible Objects"
+      first(:button, "Shop!").click
 
       expect(current_path).to eq('/restaurants/edible')
       expect(page).to have_content("Organic Matter")
       expect(page).to_not have_content("Lasagna")
+
+      visit restaurant_path(@restaurant_b)
+
+      expect(current_path).to eq('/restaurants/olive-garden')
+      expect(page).to have_content("Lasagna")
+      expect(page).to_not have_content("Organic Matter")
     end
   end
 end

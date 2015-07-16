@@ -1,4 +1,6 @@
 class CartsController < ApplicationController
+  before_action :load_restaurant
+
   def show
     session[:return_to] = request.fullpath
     if cart.items.any?
@@ -19,5 +21,10 @@ class CartsController < ApplicationController
   def update_quantity
     cart.update_quantity(params[:item_id], params[:quantity].to_i)
     redirect_to cart_path
+  end
+
+  private
+  def load_restaurant
+    @restaurant = Restaurant.find_by(display_name: params[:restaurant_id])
   end
 end

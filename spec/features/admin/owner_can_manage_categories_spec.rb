@@ -14,21 +14,27 @@ describe 'can manage categories', type: :feature do
     @restaurant_b = owner2.restaurants.create(name: 'Olive Garden', description: 'Authentic Italian', display_name: "olive-garden")
     UserRole.create(user_id: owner1.id, restaurant_id: @restaurant_a.id, role_id: @admin.id)
     UserRole.create(user_id: owner2.id, restaurant_id: @restaurant_b.id, role_id: @admin.id)
-    @item_a = @restaurant_a.items.create(name: 'Organic Matter', description: 'Real good dirtttttttttasdfasdfasdfasdf', price: 20)
-    @item_b = @restaurant_b.items.create(name: 'Lasagna', description: 'Definitely not made of plasticasdfasdfasdfa', price: 25)
 
-    @category_b = @restaurant_b.categories.create(name: 'Unhealthy', description: 'Definitely not made of plasticasdfasdfasdfa')
-    @item_c = @restaurant_b.categories.first.items.create(name: 'Grapes', description: 'mmmmmDefinitely not made of plasticasdfasdfasdfa', price: 25)
+    @category_a = @restaurant_a.categories.create(name: "Sweets")
+    @category_b = @restaurant_b.categories.create(name: "Pastas")
+
+    @item_a = @restaurant_a.items.create(name: 'Organic Matter', description: 'Real good dirt', price: 20, categories: [@category_a])
+    @item_b = @restaurant_b.items.create(name: 'Lasagna', description: 'Definitely not made of plastic', price: 25, categories: [@category_b])
+
+    # @item_c = @restaurant_b.categories.first.items.create(name: 'Grapes', description: 'mmmmmDefinitely not made of plasticasdfasdfasdfa', price: 25)
     visit root_path
   end
 
   it 'can add category to restaurant' do
-    login_as(owner2)
+    login_as(owner1)
     visit restaurants_path
-    click_link @restaurant_b.name
-    expect(page).to have_content('Lasagna')
+    first(:button, "Shop!").click
+
+    expect(page).to have_content('Edible Objects')
+    expect(page).to have_content('Organic Matter')
+
     click_link  ("Create New Category")
-    expect(page.current_path).to eq(new_restaurant_category_path(@restaurant_b))
+    expect(page.current_path).to eq(new_restaurant_category_path(@restaurant_a))
     fill_in('Name', with: 'Moldy Food')
     fill_in('Description', with: 'Mold gets a bad rap. it so nutritious and its so cheap to make that it just really makes sense to eat all the time')
 
@@ -39,23 +45,27 @@ describe 'can manage categories', type: :feature do
   end
 
   it 'can edit categories of restaurant' do
-    login_as(owner2)
+    login_as(owner1)
     visit restaurants_path
-    click_link @restaurant_b.name
-    click_link('Unhealthy')
-    click_link('Edit Category')
-    fill_in('Name', with: 'Pastaa')
-    click_button('Edit Category')
-    expect(page).to have_content('Pastaa')
+    first(:button, "Shop!").click
+
+    expect(page).to have_content('Edible Objects')
+    click_link('Sweets')
+    click_on('Edit Category')
+    fill_in('Name', with: 'Pastas')
+
+    click_on('Update Category')
+    expect(page).to have_content('Pastas')
     expect(page).to_not have_content('Unhealthy')
   end
 
   it 'can delete categories of restaurant' do
-    login_as(owner2)
+    login_as(owner1)
     visit restaurants_path
-    click_link @restaurant_b.name
-    click_link('Unhealthy')
+    first(:button, "Shop!").click
+
+    click_link('Sweets')
     click_link('Delete Category')
-    expect(page).to_not have_content('Unhealthy')
+    expect(page).to_not have_content('Sweets')
   end
 end

@@ -1,47 +1,51 @@
-<ul>
-  <% @restaurant.categories.each do |category| %>
-    <li><%= link_to category.name, restaurant_category_path(@restaurant, category) %></li>
-  <% end %>
-</ul>
+<div id="nav-headers" xmlns="http://www.w3.org/1999/html"><ul class="nav nav-pills">
+  <h1> <%= @restaurant.name %></h1>
 
-<h1><%= @restaurant.name %></h1>
+    <% @restaurant.categories.each do |category| %>
+      <li><%= link_to category.name, restaurant_category_path(@restaurant, category) %></li>
+    <% end %>
+
+    <br>
+    <br>
+    <br>
+
+  <% if current_user %>
+    <li><%= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) if current_user.staff?(@restaurant)%></li>
+    <% if current_user.admin?(@restaurant) %>
+      <li><%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %></li>
+      <li><%= link_to "Create New Restaurant Item", new_restaurant_item_path(@restaurant) %></li>
+      <li><%= link_to "Create New Category", new_restaurant_category_path(@restaurant) %></li>
+      <li><%= link_to "Add staff", new_restaurant_user_role_path(@restaurant) %></li>
+    <% end %>
+  <% end %>
+
+</ul></div><br>
+
+<div class="row text-center">
   <% @restaurant.items.each do |item| %>
-    <h2> <%= link_to item.name, restaurant_item_path(@restaurant, item) %> </h2>
-    <div class="row">
-      <div class="col-sm-4 col-md-3">
+    <div class="col-md-3 col-sm-6">
+      <div class="thumbnail">
         <%= link_to restaurant_item_path(@restaurant, item) do %>
-        <div class="thumbnail">
-          <%= image_tag item.image.url(:medium), {class: "menu_cart_img"} %>
-          <!-- <img src="http://whatscookingamerica.net/History/RockyMtnOysters4.jpg" alt="Mountain View" style="width:auto;height:45%"> -->
-          <% end %>
-          <div class="caption">
-            <h4> <%= item.name %> </h4>
-            <p class="item_description"> <%= item.description %></p>
-            <p>Price: <%= number_to_currency(item.price) %> </p>
-          </div>
-          <div class="button">
-            <%= form_tag '/add_item', method: :get do %>
-              <%= hidden_field_tag :item_id, item.id  %>
-              <%= hidden_field_tag :restaurant_id, @restaurant.id  %>
-              <%= button_tag(:class => "btn btn-default btn-sm", :id => "cart_button") do %>
-                add to cart <span class="glyphicon glyphicon-shopping-cart" ></span>
-              <% end %>
+            <%= image_tag item.image.url(:original), {class: "menu_cart_img"} %>
+            <!-- <img src="http://whatscookingamerica.net/History/RockyMtnOysters4.jpg" alt="Mountain View" style="width:auto;height:45%"> -->
+        <% end %>
+        <div class="caption">
+          <h4 id="restaurant-titles"> <%= link_to item.name, restaurant_item_path(@restaurant, item) %> </h4>
+          <p> <%= item.description %></p>
+        </div>
+          <%= form_tag '/add_item', method: :get do %>
+            <%= hidden_field_tag :item_id, item.id  %>
+            <%= hidden_field_tag :restaurant_id, @restaurant.id  %>
+            <%= button_tag(:class => "btn btn-default btn-sm", :id => "cart_button") do %>
+              add to cart <span class="glyphicon glyphicon-shopping-cart" ></span>
             <% end %>
-          </div>
-              </div>
-              </div>
-            </div>
+          <% end %>
+        <p><%= number_to_currency(item.price) %> </p>
+      </div>
+    </div>
   <% end %>
+</div>
 
-<% if current_user %>
-  <%= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) if current_user.staff?(@restaurant)%>
-  <% if current_user.admin?(@restaurant) %>
-    <%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %>
-    <%= link_to "Create New Restaurant Item", new_restaurant_item_path(@restaurant) %>
-    <%= link_to "Create New Category", new_restaurant_category_path(@restaurant) %>
-    <%= link_to "Add staff", new_restaurant_user_role_path(@restaurant) %>
-  <% end %>
-<% end %>
 
 
 

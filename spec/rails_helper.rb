@@ -29,6 +29,11 @@ module MyHelpers
     page.click_button('Log In')
   end
 
+  def create_order(user)
+    login_as(user)
+
+  end
+
   def create_item(overrides = {})
     attributes = {
       name: "Mountain Mud Pie",
@@ -50,7 +55,7 @@ module MyHelpers
     appetizer = Category.create(name: 'Appetizers')
     attributes = {
       name: 'dandelion salad',
-      description: 'yummyyummyyummyyummyyummyyummyyummy',
+      description: 'yummy yummy',
       price: 5.00,
       status: 'active',
       category_ids: [appetizer.id]}
@@ -69,10 +74,6 @@ module MyHelpers
       status: 'paid'
     }.merge(overrides)
     Order.create(attributes)
-  end
-
-  def add_items_to_cart
-    
   end
 
 end

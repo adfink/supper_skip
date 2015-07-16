@@ -21,13 +21,12 @@ describe 'can assign staff members', type: :feature do
 
   it 'can add staff members to restaurant' do
     login_as(owner1)
-    visit restaurants_path
-    click_link @restaurant_b.name
+    visit restaurant_path(@restaurant_b)
 
     expect(page).to_not have_content('Add staff')
 
     visit restaurants_path
-    click_on @restaurant_a.name
+    first(:button, "Shop!").click
 
     expect(page).to have_content('Add staff')
 
@@ -46,8 +45,9 @@ describe 'can assign staff members', type: :feature do
     UserRole.create(user_id: user2.id, restaurant_id: @restaurant_a.id, role_id: @dp.id)
     Order.create(user_id: user1.id, restaurant_id: @restaurant_a.id, online_order_id: online_order.id)
     login_as(owner2)
+
     visit restaurants_path
-    click_on @restaurant_a.name
+    first(:button, "Shop!").click
     click_on 'Restaurant Order History'
 
     expect(page).to have_content('Ready for preparation')
@@ -65,7 +65,7 @@ describe 'can assign staff members', type: :feature do
 
     login_as(user2)
     visit restaurants_path
-    click_on @restaurant_a.name
+    first(:button, "Shop!").click
     click_on 'Restaurant Order History'
 
     expect(page).to have_content('Out For Delivery')

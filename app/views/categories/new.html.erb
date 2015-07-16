@@ -1,11 +1,5 @@
-<h1> Create Your New Category </h1>
 
-<%= form_for ([@restaurant, @category]) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %><br>
+  <h1> Create Your New Category </h1>
 
-  <%= f.label :description %>
-  <%= f.text_field :description %><br>
+  <%= render partial: "form" %>
 
-  <%= f.submit "Create Category" %>
-<% end %>

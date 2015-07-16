@@ -1,14 +1,38 @@
 require 'rails_helper'
 
-RSpec.describe OnlineOrder, type: :model do
-  let(:user){ User.create(full_name: "Jt", email_address: "adsf@asdf.com", password: "password", screen_name: "asdf")}
-  let(:online_order){ OnlineOrder.create(user_id: user.id)}
+RSpec.describe OnlineOrder, :type, :model do
 
-  it 'is valid' do
-    expect(online_order).to be_valid
+  before(:each) do
+    @owner = User.create(full_name: "Whitney Houston", email_address: "whit@whit.com", password: "password", screen_name: "whit")
+    @restaurant = @owner.restaurants.create(name: 'Edible Objects', description: 'Tasty', display_name:"edible")
+    category = @restaurant.categories.create(name: "Sweets")
+    @item = @restaurant.items.create(name: 'Organic Matter', description: 'Real good dirt', price: 15, categories: [category])
+
+    @user = User.create!(full_name: 'Billy', screen_name: 'Billy', email_address: 'billy@email.com', password: 'password')
+
+    @online_order1 = OnlineOrder.create!(user_id: @owner.id)
+    @online_order2 = OnlineOrder.create!(user_id: @owner.id)
   end
 
-  it 'is valid' do
-    expect(online_order).to respond_to(:user)
+
+  context "is valid" do
+    it "is valid with valid attributes" do
+      expect(@online_order1).to be_valid
+    end
+
+    it "responds to user" do
+      expect(@online_order1.user.id).to eq(@owner.id)
+    end
+
+    it "can find it's order" do
+      expect(@owner.online_orders.count).to eq(2)
+    end
+  end
+
+  context "is invalid with invalid attributes" do
+    it "is invalid without user_id" do
+      order = OnlineOrder.create(created_at: Time.now)
+      expect(order).to_not be_valid
+    end
   end
 end

@@ -1,6 +1,6 @@
 <div class="filter">
   <label style="color:black;">Filter Status</label>
-  <%= select("order", "filter_status", @orders.map(&:make_status_readable).uniq, {include_blank: true}) %>
+  <%= select("order", "filter_status", @orders.map(&:make_status_readable).uniq, {include_blank: true}, :style => "color: black;") %>
 </div>
 
 <table class="tg">

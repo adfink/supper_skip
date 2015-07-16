@@ -31,7 +31,8 @@
         <td class="tg-e3zv"><%= number_to_currency(order.total) %></td>
       </tr>
       <tr>
-        <td class="tg-031e" colspan="6" style="text-align: right;">Status: <%= order.make_status_readable %></td>
+        <td class="tg-0ord" colspan="3">Status: </td>
+        <td class="tg-e3zv"><%= order.make_status_readable %></td>
       </tr>
       <tr>
         <td class="tg-031e" colspan="6" style="text-align: right;">
@@ -42,3 +43,4 @@
   </table>
   <% end %>
   </div>
+

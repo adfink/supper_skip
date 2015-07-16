@@ -1,9 +1,30 @@
-<% if current_user %>
-  <%= link_to "Register New Restaurant", new_restaurant_path %>
-<% end %>
 
-<ul>
-  <% @restaurants.each do |restaurant|  %>
-    <li><%= link_to restaurant.name, restaurant %></li>
+<% if current_user %>
+  <%= form_tag new_restaurant_path, method: :get do %>
+    <%= button_tag(:class => "btn btn-default btn-sm", :id => "cart_button") do %>
+      Register a New Restaurant
+    <% end %>
   <% end %>
-</ul>
+<% end %><br>
+
+<div class="row text-center">
+  <% @restaurants.each do |restaurant|  %>
+    <div class="col-md-3 col-sm-6">
+      <div class="thumbnail_index">
+        <div class="caption">
+          <h2><%= restaurant.name %></h2>
+          <p class="item_description"> <%= restaurant.description %></p>
+        </div>
+        <div class="button">
+          <%= form_tag restaurant_path(restaurant), method: :get do %>
+            <%= hidden_field_tag :restaurant_id, restaurant.id  %>
+            <%= button_tag(:class => "btn btn-default btn-sm", :id => "cart_button") do %>
+              Shop! <span class="glyphicon glyphicon-shopping-cart" ></span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+

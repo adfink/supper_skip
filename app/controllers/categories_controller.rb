@@ -12,13 +12,14 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    category = Category.new(category_params)
-    category.restaurant_id = @restaurant.id
+    @category = Category.new(category_params)
+    @category.restaurant_id = @restaurant.id
 
-    if category.save
+    if @category.save
+      flash[:success] = 'Category was successfully created.'
       redirect_to @restaurant
     else
-      flash.now[:errors] = category.errors.full_messages.join(", ")
+      flash.now[:errors] = @category.errors.full_messages.join(", ")
       render :new
     end
   end
@@ -54,7 +55,7 @@ class CategoriesController < ApplicationController
     user = Permissions.new(current_user)
 
     unless user.can_edit_restaurant?(@restaurant)
-      flash[:notice] = "get lost, #{current_user.name}!"
+      flash[:notice] = "Get lost, #{current_user.full_name}!"
       redirect_to root_path
     end
   end

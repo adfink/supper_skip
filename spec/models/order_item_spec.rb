@@ -3,7 +3,12 @@ require 'rails_helper'
 RSpec.describe Item, :type => :model do
 
   let(:order_item) do
-    @item = Item.create(name: 'possum pie', description: "delicious, yummy, delicious, yummy, delicious, yummy,delicious, yummy,delicious, yummy,", price: 5, status: "active")
+    owner = User.create(full_name: "Whitney Houston", email_address: "whit@whit.com", password: "password", screen_name: "whit")
+    @restaurant = owner.restaurants.create(name: 'Edible Objects', description: 'Tasty', display_name:"edible")
+    @category = @restaurant.categories.create(name: "Sweets")
+
+    @item = @restaurant.items.create(name: 'Organic Matter', description: 'Real good dirt', price: 20, categories: [@category])
+
     OrderItem.new(order_id: 1, item_id: @item.id, quantity: 3 )
   end
 
@@ -22,7 +27,7 @@ RSpec.describe Item, :type => :model do
   end
 
   it 'calculates a line total' do
-    expect(order_item.line_total).to eq(15)
+    expect(order_item.line_total).to eq(60)
   end
 
 end
