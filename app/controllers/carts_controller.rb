@@ -1,8 +1,6 @@
 class CartsController < ApplicationController
   def show
     if cart.items.any?
-      @subtotal = Cart.subtotal(session)
-      @tax = Cart.tax(session)
       @total = Cart.total(session)
     end
   end
