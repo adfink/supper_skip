@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  # protect_from_forgery with: :exception
   helper_method :current_user
   helper_method :current_restaurant
   helper_method :cart
@@ -19,5 +19,4 @@ class ApplicationController < ActionController::Base
       @current_restaurant ||= Restaurant.find(params[:restaurant_id])
     end
   end
-
 end

@@ -26,7 +26,7 @@
             <% end %>
             <% if current_user.delivery_person?(@restaurant) %>
               <%= link_to "Out For Delivery", restaurant_order_path(@restaurant, order, order: {status: 'deliver'}), method: 'put' if order.may_deliver? %>
-              <%= link_to "Mark As Completed", restaurant_order_path(@restaurant, order, order: {status: 'complete'}), method: 'put' if order.may_complete? && current_restaurant.my_order?(order)%>
+              <%= link_to "Mark As Completed", restaurant_order_path(@restaurant, order, order: {status: 'complete'}), method: 'put' if order.may_complete? && current_user.my_order?(order)%>
             <% end %>
             <%= link_to "Cancel", restaurant_order_path(@restaurant, order, order: {status: 'cancel'}), method: 'put' if order.may_cancel? %>
           </td>
