@@ -62,19 +62,10 @@ describe 'Managing orders', type: :feature do
 
     xit "can filter orders by status" do
       visit restaurant_orders_path(@restaurant_b)
-      find('#order_filter_status', :match => :first).find(:xpath, 'option[2]').select_option
-
+      find('#order_filter_status').find(:xpath, 'option[1]').select_option
       expect(page).to have_content("Out for delivery")
       expect(page).not_to have_content("Completed")
       expect(page).not_to have_content("In preparation")
-    end
-    
-    xit "clicking all will allow you to view page with all orders again" do
-      visit restaurant_orders_path(@restaurant_b)
-      find('#order_filter_status', :match => :first).find(:xpath, 'option[0]').select_option
-
-      expect(page).to have_content("Out for delivery")
-      expect(page).to have_content("Completed")
     end
   end
 end
