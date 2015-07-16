@@ -12,7 +12,9 @@ class Cart
   end
 
   def update_quantity(item_id, quantity)
-    items[item_id] = quantity
+    if quantity > 0
+      items[item_id] = quantity
+    end
   end
 
   def item(item_id)

@@ -1,9 +1,9 @@
-<h1>Hello <%= @user.full_name %>, this is your profile age</h1>
+<h1>Hello, <%= @user.full_name %></h1>
 <ul>
-  <p>these are the restaurants that you work at (if any)</p>
+  <h2 style="text-align: center">Your restaurants:</h2>
   <% @jobs.each do |job| %>
-    <li><%= job.name %>... at <%= job.user_roles.where(user_id:@user.id).first.restaurant.name %></li>
+    <li><%= job.name.capitalize %>... at <%= job.user_roles.where(user_id:@user.id).first.restaurant.name %></li>
   <% end %>
 </ul>
 
-<%= link_to "click here to edit your profile information", edit_user_path(@user) %>
+<a type="button" class="btn btn-default btn-sm" href="<%= edit_user_path(@user) %>">Edit Profile</a>
