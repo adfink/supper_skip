@@ -1,6 +1,4 @@
 class Item < ActiveRecord::Base
-  attr_reader :image_remote_url
-
   belongs_to :restaurant
   has_many :order_items
   has_many :orders, through: :order_items
@@ -15,19 +13,10 @@ class Item < ActiveRecord::Base
 
   validates :status, inclusion: ['active', 'retired', 'Active', 'Retired']
 
-  has_attached_file :image, :default_url => ':placeholder'
+  has_attached_file :image, :default_url => "default_image.jpg"
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png"]
 
-  # has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
-  # validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
-
   default_scope { order('name ASC')}
-
-  def image_remote_url=(url)
-    self.image = URI.parse(url)
-    @image_remote_url = url
-  end
-
 
   def self.active
     where(status: 'active')

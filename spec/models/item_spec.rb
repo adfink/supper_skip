@@ -3,8 +3,12 @@ require 'rails_helper'
 RSpec.describe Item, :type => :model do
 
   let(:item) do
-  Item.new(name: 'possum pie', description: "delicious, yummy, delicious, yummy, delicious, yummy,delicious, yummy,delicious, yummy,", price: 5, status: "active")
-end
+    owner = User.create(full_name: "Whitney Houston", email_address: "whit@whit.com", password: "password", screen_name: "whit")
+    @restaurant = owner.restaurants.create(name: 'Edible Objects', description: 'Tasty', display_name:"edible")
+    @category = @restaurant.categories.create(name: "Sweets")
+
+    @item = @restaurant.items.create(name: 'Organic Matter', description: 'Real good dirt', price: 20, categories: [@category])
+  end
 
   it 'can create an item' do
     expect(item).to be_valid

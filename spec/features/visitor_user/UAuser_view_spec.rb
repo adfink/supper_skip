@@ -14,7 +14,7 @@ describe 'the user view', type: :feature do
   describe 'account creation', type: :feature do
     it 'can create user credentials' do
       visit '/'
-      page.click_link('Register')
+      page.click_link('Sign Up')
 
       page.fill_in('Full name', with: 'Joe User')
       page.fill_in('Email address', with: 'joe@email.com')
