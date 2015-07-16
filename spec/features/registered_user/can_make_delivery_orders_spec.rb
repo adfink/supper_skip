@@ -56,7 +56,7 @@ describe 'the registered user', type: :feature do
       expect(OnlineOrder.all.count).to eq(1)
     end
 
-    it "can place a delivery order" do
+    it "can place a delivery order, then cancel" do
       visit addresses_path
 
       click_on "Enter a New Address"
@@ -69,6 +69,16 @@ describe 'the registered user', type: :feature do
 
       expect(page).to have_content("Please Choose an Address")
       expect(current_path).to eq(addresses_path)
+
+      click_on("Use This Address")
+      expect(page).to have_content("Thank You For Ordering")
+
+      click_on('Review Existing Orders')
+      click_on @user.online_orders.first.id
+      first(:link, "Cancel").click
+
+      expect(page).to have_content("Order Status Updated!")
+      expect(page).to have_content("Cancelled")
     end
 
     it 'is prompted to select or create an address' do

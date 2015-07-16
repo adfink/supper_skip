@@ -46,6 +46,9 @@ describe 'Managing orders', type: :feature do
 
       expect(page.current_path).to eq(restaurant_orders_path(@restaurant_b))
       assert 1, @owner2.online_orders.count
+      expect(page).to have_content("Out for delivery")
+      expect(page).to have_content("Completed")
+      expect(page).not_to have_content("In preparation")
     end
 
     it "cannot access the orders page for someone elses restaurant" do
@@ -57,84 +60,21 @@ describe 'Managing orders', type: :feature do
       expect(page).to have_content("get lost, #{@owner2.full_name}!")
     end
 
-    it "viewing in preparation orders" do
+    it "can filter orders by status" do
       visit restaurant_orders_path(@restaurant_b)
-
-      find('#order_filter_status', :match => :first).find(:xpath, 'option[1]').select_option
+      find('#order_filter_status', :match => :first).find(:xpath, 'option[2]').select_option
 
       expect(page).to have_content("Out for delivery")
-
       expect(page).not_to have_content("Completed")
       expect(page).not_to have_content("In preparation")
     end
-
-    xit "viewing the paid filter with a paid order" do
-      create_order(user_id: @owner.id)
-      visit restaurant_orders_path(@restaurant_a)
-      expect(page).to have_link "Paid (1)"
-    end
-
-    xit "viewing the paid filter without a paid order" do
-      visit restaurant_orders_path(@restaurant_a)
-      expect(page).to have_link "Paid (0)"
-    end
-
-    xit "viewing the completed filter with a completed order" do
-      create_order(status: 'completed', user_id: @owner.id)
-      visit restaurant_orders_path(@restaurant_a)
-      expect(page).to have_link "Completed (1)"
-    end
-
-    xit "viewing the completed filter with a completed order" do
-      visit restaurant_orders_path(@restaurant_a)
-      expect(page).to have_link "Completed (0)"
-    end
-
-    xit "viewing the canceled filter with a canceled order" do
-      create_order(status: 'canceled', user_id: @owner.id)
-      visit restaurant_orders_path(@restaurant_a)
-      expect(page).to have_link "Canceled (1)"
-    end
-
-    xit "viewing the canceled filter with a canceled order" do
-      visit restaurant_orders_path(@restaurant_a)
-      expect(page).to have_link "Canceled (0)"
-    end
-
-    xit "viewing the ordered filter with a ordered order" do
-      create_order(status: 'ordered', user_id: @owner.id)
-      visit restaurant_orders_path(@restaurant_a)
-      expect(page).to have_link "Ordered (1)"
-    end
-
-
+    
     xit "clicking all will allow you to view page with all orders again" do
-      create_order(status: 'ordered', user_id: @owner.id)
-      create_order(status: 'ordered', user_id: @owner.id)
-      user2 = User.create(full_name: 'Jane', email_address: 'jane@example.com', password: '1234', password_confirmation: '1234', role: 'admin')
+      visit restaurant_orders_path(@restaurant_b)
+      find('#order_filter_status', :match => :first).find(:xpath, 'option[0]').select_option
 
-      create_order(status: 'canceled', user_id: user2.id)
-      create_order(user_id: user2.id)
-      visit restaurant_orders_path(@restaurant_a)
-
-      expect(page).to have_link "Ordered (2)"
-      expect(page).to have_link "Paid (1)"
-      expect(page).to have_link "Canceled (1)"
-
-      click_link('Ordered (2)')
-
-      expect(page).to have_text "John"
-      expect(page).to_not have_text "Jane"
-      click_link('View All orders')
-      expect(page).to have_text "John"
-      expect(page).to have_text "Jane"
-    end
-
-    xit "can change status of order from ordered to cancelled" do
-      order = create_order(status: 'ordered', user_id: @owner.id)
-      visit restaurant_orders_path(@restaurant_a)
-      click_button 'Cancel'
-      expect(page).to have_text 'Canceled (1)'
+      expect(page).to have_content("Out for delivery")
+      expect(page).to have_content("Completed")
     end
   end
 end
