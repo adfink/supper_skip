@@ -24,9 +24,8 @@ RSpec.describe OnlineOrder, :type, :model do
       expect(@online_order1.user.id).to eq(@owner.id)
     end
 
-    xit "can find it's order" do
+    it "can find it's order" do
       expect(@owner.online_orders.count).to eq(2)
-      expect(@owner.online_orders.last.id).to eq(2)
     end
   end
 

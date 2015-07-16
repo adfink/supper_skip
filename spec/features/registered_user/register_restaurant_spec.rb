@@ -31,23 +31,6 @@ describe 'normal user', type: :feature do
     click_button('Create Restaurant')
 
     expect(current_path).to eq('/restaurants/restaurant-name')
-    # expect(page).to have_content('Restaurant Name')
-    #TODO user's admin role
   end
 
-  xit 'shows items for a given restaurant' do
-    visit restaurant_path(@restaurant_b)
-
-    assert page.has_content?(@item_b.name)
-    refute page.has_content?(@item_a.name)
-
-    visit restaurant_path(@restaurant_a)
-    assert page.has_content?(@item_a.name)
-    refute page.has_content?(@item_b.name)
-
-    click_on(@item_a.name)
-
-    expect(current_path).to eq("/restaurants/edible/items/#{@item_a.id}")
-    expect(page).to have_content(@item_a.description)
-  end
 end
