@@ -34,7 +34,7 @@ describe 'the user view', type: :feature do
     end
 
     it 'can delete an address' do
-      click_on('Delivery')
+      visit addresses_path
 
       click_on "Enter a New Address"
       fill_in('Street address', with: "123 Mountain Street")

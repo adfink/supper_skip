@@ -1,0 +1,8 @@
+<h1>fill out the info for your new staff member here</h1>
+
+<%= form_for ([@restaurant, @user_role]) do |f| %>
+  <%= f.label :email_address %>
+  <%= f.text_field :user_id %>
+  <%= f.collection_select :role_id, Role.all,:id,:name, include_blank: true %>
+  <%= f.submit %>
+<% end %>

@@ -1,3 +1,8 @@
+<div class="filter">
+  <label style="color:black;">Filter Status</label>
+  <%= select("order", "filter_status", @orders.map(&:make_status_readable).uniq, {include_blank: true}, :style => "color: black;") %>
+</div>
+
 <table class="tg">
   <tr>
     <th class="tg-031e" colspan="6" style="text-align: center"><%= @restaurant.name %><br>
@@ -9,23 +14,25 @@
     <td class="tg-e3zv">Status</td>
     <td class="tg-e3zv">Customer</td>
   </tr>
-  <% @orders.each do |order| %>
-  <tr class = 'orders_smorders'>
-      <td class="tg-031e" ><%= link_to order.id, restaurant_order_path(@restaurant, order) %></td>
-      <td class="tg-031e"><%= order.created_at.strftime("%d %b. %Y") %></td>
-      <td class="tg-031e">
-        <% if current_user.cook?(@restaurant) %>
-          <%= link_to "In Preparation", restaurant_order_path(@restaurant, order, order: {status: 'prepare'}), method: 'put' if order.may_prepare? %>
-          <%= link_to "Ready For Delivery", restaurant_order_path(@restaurant, order, order: {status: 'ready'}), method: 'put' if order.may_ready? && current_user.my_order?(order) %>
-        <% end %>
-        <% if current_user.delivery_person?(@restaurant) %>
-          <%= link_to "Out For Delivery", restaurant_order_path(@restaurant, order, order: {status: 'deliver'}), method: 'put' if order.may_deliver? %>
-          <%= link_to "Mark As Completed", restaurant_order_path(@restaurant, order, order: {status: 'complete'}), method: 'put' if order.may_complete? && current_restaurant.my_order?(order)%>
-        <% end %>
-        <%= link_to "Cancel", restaurant_order_path(@restaurant, order, order: {status: 'cancel'}), method: 'put' if order.may_cancel? %>
-      </td>
-      <td class="tg-031e"><%= order.make_status_readable %></td>
-      <td class="tg-031e"><%= order.online_order.user.full_name %></td>
+  <div class="orders">
+    <% @orders.each do |order| %>
+        <tr class="order" data-status="<%= order.make_status_readable %>">
+          <td class="tg-031e" ><%= link_to order.id, restaurant_order_path(@restaurant, order) %></td>
+          <td class="tg-031e"><%= order.created_at.strftime("%d %b. %Y") %></td>
+          <td class="tg-031e">
+            <% if current_user.cook?(@restaurant) %>
+              <%= link_to "In Preparation", restaurant_order_path(@restaurant, order, order: {status: 'prepare'}), method: 'put' if order.may_prepare? %>
+              <%= link_to "Ready For Delivery", restaurant_order_path(@restaurant, order, order: {status: 'ready'}), method: 'put' if order.may_ready? && current_user.my_order?(order) %>
+            <% end %>
+            <% if current_user.delivery_person?(@restaurant) %>
+              <%= link_to "Out For Delivery", restaurant_order_path(@restaurant, order, order: {status: 'deliver'}), method: 'put' if order.may_deliver? %>
+              <%= link_to "Mark As Completed", restaurant_order_path(@restaurant, order, order: {status: 'complete'}), method: 'put' if order.may_complete? && current_user.my_order?(order)%>
+            <% end %>
+            <%= link_to "Cancel", restaurant_order_path(@restaurant, order, order: {status: 'cancel'}), method: 'put' if order.may_cancel? %>
+          </td>
+          <td class="tg-031e"><%= order.make_status_readable %></td>
+          <td class="tg-031e"><%= order.online_order.user.full_name %></td>
+        </tr>
     <% end %>
-  </tr>
+  </div>
 </table>

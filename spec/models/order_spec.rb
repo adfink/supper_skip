@@ -2,28 +2,43 @@ require 'rails_helper'
 
 RSpec.describe Order, :type => :model do
 
-  before(:each) do
-    @owner = User.create(full_name: "Whitney Houston", email_address: "whit@whit.com", password: "password", screen_name: "whit")
-    @restaurant = @owner.restaurants.create(name: 'Edible Objects', description: 'Tasty', display_name:"edible")
-    category = @restaurant.categories.create(name: "Sweets")
-    @item = @restaurant.items.create(name: 'Organic Matter', description: 'Real good dirt', price: 3, categories: [category])
-
-    @user = User.create!(full_name: 'Billy', screen_name: 'Billy', email_address: 'billy@email.com', password: 'password')
-
-    @order = Order.create(user_id: @owner.id, status: :ready_for_preparation)
-    @order.order_items.create(item_id: @item.id, quantity: 5)
+  let(:order) do
+    user = User.create(full_name: "Justin", email_address: "asdf@asdf.com", password: "password")
+    online_order = user.online_orders.create
+    restaurant = Restaurant.create(name: 'asdf', user_id: user.id)
+    category = restaurant.categories.create(name: "Sweets")
+    item = Item.create(name: 'possum pie', description: "delicious, yummy, delicious, yummy, delicious, yummy,delicious, yummy,delicious, yummy,", price: 5, status: "active", categories: [category])
+    order_item = OrderItem.new(order_id: 1, item_id: item.id, quantity: 3 )
+    Order.create(order_items: [order_item], restaurant_id: restaurant.id, user_id: user.id, online_order_id: online_order.id)
   end
 
-  it 'can calculate a subtotal' do
-    expect(@order.subtotal).to eq(15)
+  it 'is valid' do
+    expect(order).to be_valid
   end
 
-  it 'can calculate tax' do
-    expect(@order.tax).to eq(".75".to_f)
+  it 'is invalid without status' do
+    order.status = nil
+    expect(order).to_not be_valid
+  end
+
+  it 'is associated with a user' do
+    expect(order).to respond_to(:user)
+  end
+
+  it 'is associated with a restaurant' do
+    expect(order).to respond_to(:restaurant)
+  end
+
+  it 'is associated with an online order' do
+    expect(order).to respond_to(:online_order)
+  end
+
+  it 'is associated with an online order' do
+    expect(order).to respond_to(:address)
   end
 
   it 'can calculate a total' do
-    expect(@order.total).to eq(15.75)
+    # binding.pry
+    expect(order.total).to eq(15)
   end
-
 end

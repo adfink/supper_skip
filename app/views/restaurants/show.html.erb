@@ -9,12 +9,15 @@
     <br>
     <br>
 
-    <% if current_user && current_user.admin?(@restaurant) %>
-      <li><%= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) if current_user.staff?(@restaurant)%></li>
+  <% if current_user %>
+    <li><%= link_to "Restaurant Order History", restaurant_orders_path(@restaurant) if current_user.staff?(@restaurant)%></li>
+    <% if current_user.admin?(@restaurant) %>
       <li><%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %></li>
       <li><%= link_to "Create New Restaurant Item", new_restaurant_item_path(@restaurant) %></li>
       <li><%= link_to "Create New Category", new_restaurant_category_path(@restaurant) %></li>
+      <li><%= link_to "Add staff", new_restaurant_user_role_path(@restaurant) %></li>
     <% end %>
+  <% end %>
 
 </ul></div><br>
 
@@ -23,7 +26,7 @@
     <div class="col-md-3 col-sm-6">
       <div class="thumbnail">
         <%= link_to restaurant_item_path(@restaurant, item) do %>
-            <%= image_tag item.image.url(:medium), {class: "menu_cart_img"} %>
+            <%= image_tag item.image.url(:original), {class: "menu_cart_img"} %>
             <!-- <img src="http://whatscookingamerica.net/History/RockyMtnOysters4.jpg" alt="Mountain View" style="width:auto;height:45%"> -->
         <% end %>
         <div class="caption">
@@ -42,8 +45,6 @@
     </div>
   <% end %>
 </div>
-
-
 
 
 

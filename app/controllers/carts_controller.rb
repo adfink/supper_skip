@@ -2,9 +2,8 @@ class CartsController < ApplicationController
   before_action :load_restaurant
 
   def show
+    session[:return_to] = request.fullpath
     if cart.items.any?
-      @subtotal = Cart.subtotal(session)
-      @tax = Cart.tax(session)
       @total = Cart.total(session)
     end
   end

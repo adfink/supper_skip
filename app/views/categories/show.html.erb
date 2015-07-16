@@ -10,7 +10,7 @@
     <div class="col-md-3 col-sm-6">
       <div class="thumbnail">
         <%= link_to restaurant_item_path(@restaurant, item) do %>
-          <%= image_tag item.image.url(:medium), {class: "menu_cart_img"} %>
+          <%= image_tag item.image.url(:original), {class: "menu_cart_img"} %>
           <!-- <img src="http://whatscookingamerica.net/History/RockyMtnOysters4.jpg" alt="Mountain View" style="width:auto;height:45%"> -->
         <% end %>
         <div class="caption">

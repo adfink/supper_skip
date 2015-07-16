@@ -19,6 +19,15 @@ RSpec.describe OnlineOrder, :type, :model do
     it "is valid with valid attributes" do
       expect(@online_order1).to be_valid
     end
+
+    it "responds to user" do
+      expect(@online_order1.user.id).to eq(@owner.id)
+    end
+
+    xit "can find it's order" do
+      expect(@owner.online_orders.count).to eq(2)
+      expect(@owner.online_orders.last.id).to eq(2)
+    end
   end
 
   context "is invalid with invalid attributes" do
@@ -26,15 +35,5 @@ RSpec.describe OnlineOrder, :type, :model do
       order = OnlineOrder.create(created_at: Time.now)
       expect(order).to_not be_valid
     end
-
-    it "responds to user" do
-      expect(@online_order1.user.id).to eq(@owner.id)
-    end
-
-    it "can find it's order" do
-      expect(@owner.online_orders.count).to eq(2)
-      expect(@owner.online_orders.last.id).to eq(2)
-    end
-
   end
 end

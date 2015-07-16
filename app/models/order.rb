@@ -1,6 +1,11 @@
 class Order < ActiveRecord::Base
   include AASM
 
+  validates :status, presence: true
+  validates :user, presence: true
+  validates :restaurant, presence: true
+  validates :online_order, presence: true
+
   belongs_to :online_order
   belongs_to :restaurant
   belongs_to :user
@@ -54,17 +59,8 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def subtotal
-    line_totals = order_items.map { |order_item| order_item.line_total }
-    line_totals.reduce(:+)
-  end
-
-  def tax
-    subtotal * ".05".to_f
-  end
-
   def total
-    subtotal + tax
+    order_items.map { |order_item| order_item.line_total }.reduce(:+)
   end
 
   def make_status_readable

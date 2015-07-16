@@ -56,12 +56,6 @@ feature "unregistered user is able to shop items at multiple restaurants" do
 
       expect(page).to have_content('Lasagna')
       expect(page).to have_content(45)
-
-      click_on('Checkout')
-      click_on('Pick Up')
-
-      expect(page).to have_content('Thank You For Ordering')
-      expect(current_path).to eq("/verification")
     end
 
     it "can shop, sign up and checkout" do
@@ -92,12 +86,6 @@ feature "unregistered user is able to shop items at multiple restaurants" do
       expect(page).to have_content('Lasagna')
       expect(page).to have_content('Organic Matter')
       expect(page).to have_content(45)
-
-      click_on('Checkout')
-      click_on('Pick Up')
-
-      expect(page).to have_content('Thank You For Ordering')
-      expect(current_path).to eq("/verification")
     end
   end
 end

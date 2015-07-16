@@ -6,7 +6,22 @@ class UsersController < ApplicationController
 
 	def new
 		@user = User.new
-	end
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+
+    if @user.update(user_params)
+      redirect_to @user, notice: "profile Updated"
+    else
+      flash.now[:errors] = @user.errors.full_messages.join(", ")
+      render :edit
+    end
+  end
 
 	def create
 		@user = User.new(user_params)
@@ -19,11 +34,12 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
+    @jobs = @user.roles
 	end
 
 	private
 
 	def user_params
-		params.require(:user).permit(:full_name, :email_address, :screen_name, :password, :password_confirmation)
+		params.require(:user).permit(:full_name, :email_address, :screen_name, :password, :password_confirmation, :phone)
 	end
 end

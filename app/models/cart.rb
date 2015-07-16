@@ -12,7 +12,9 @@ class Cart
   end
 
   def update_quantity(item_id, quantity)
-    items[item_id] = quantity
+    if quantity > 0
+      items[item_id] = quantity
+    end
   end
 
   def item(item_id)
@@ -31,18 +33,10 @@ class Cart
     items.empty?
   end
 
-  def self.subtotal(session)
+  def self.total(session)
     prices = session[:cart_items].map do |item_id, quantity|
       Item.find(item_id).price * quantity.to_i
     end
     prices.reduce(:+)
-  end
-
-  def self.tax(session)
-    subtotal(session) * ".05".to_f
-  end
-
-  def self.total(session)
-    subtotal(session) + tax(session)
   end
 end

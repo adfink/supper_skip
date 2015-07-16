@@ -29,7 +29,16 @@ RSpec.describe "authenicated user" do
       find('#cart').click
 
       click_on('Checkout')
-      click_on('Pick Up')
+      find("button[@type='submit']").click
+
+      visit addresses_path
+      click_on "Enter a New Address"
+      fill_in('City', with: "Denver")
+      fill_in('Street address', with: "123 Mountain Street")
+      select "Colorado", :from => "State"
+      fill_in('Zip', with: '80228')
+      click_button('Create Address')
+      click_on('Use This Address')
     end
 
     it "can view past orders page" do

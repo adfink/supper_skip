@@ -13,8 +13,10 @@ class Item < ActiveRecord::Base
 
   validates :status, inclusion: ['active', 'retired', 'Active', 'Retired']
 
-  has_attached_file :image, :default_url => "default_image.jpg"
+  has_attached_file :image, :styles => { :original => "300x300", :thumb => "100x100" }, :default_url => "default_image.jpg"
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png"]
+
+
 
   default_scope { order('name ASC')}
 
