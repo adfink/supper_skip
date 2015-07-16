@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-
   def new
   end
 
@@ -7,7 +6,11 @@ class SessionsController < ApplicationController
     @user = User.find_by(email_address: params[:email_address])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect_to root_path
+      if session[:return_to]
+        redirect_to session[:return_to]
+      else
+        redirect_to root_path
+      end
     else
       flash[:error] = "invalid login"
       redirect_path = session[:return_to] || :back

@@ -29,17 +29,21 @@ describe 'the registered user', type: :feature do
 
     it 'does not create a duplicate order if user clicks back button after order confirmation' do
       expect(OnlineOrder.all.count).to eq(0)
-      click_on('Delivery')
+      find("button[@type='submit']").click
 
+      visit addresses_path
       click_on "Enter a New Address"
+
+      fill_in('City', with: "Denver")
       fill_in('Street address', with: "123 Mountain Street")
-      fill_in('City', with: 'Denver')
       select "Colorado", :from => "State"
       fill_in('Zip', with: '80228')
-
       click_button('Create Address')
-      click_button('use this address')
 
+      expect(page).to have_content("Please Choose an Address")
+      expect(current_path).to eq(addresses_path)
+
+      click_on('Use This Address')
       expect(page).to have_content("Thank You For Ordering")
       expect(OnlineOrder.all.count).to eq(1)
 
@@ -71,19 +75,21 @@ describe 'the registered user', type: :feature do
       expect(page).to have_button("Enter a New Address")
     end
 
-    it 'cannot proceed with any blank address field' do
-      click_on('Delivery')
+    describe 'when placing a wrong delivery address', type: :feature do
 
-      click_on "Enter a New Address"
-      fill_in('Street address', with: "123 Mountain Street")
-      select "Colorado", :from => "State"
-      fill_in('Zip', with: '80228')
+      it 'cannot proceed with any blank address field' do
+        visit addresses_path
 
-      click_button('Create Address')
+        click_on "Enter a New Address"
+        fill_in('Street address', with: "123 Mountain Street")
+        select "Colorado", :from => "State"
+        fill_in('Zip', with: '80228')
 
-      expect(page).to_not have_content("Thank You For Ordering")
-      expect(page).to have_css("#errors")
+        click_button('Create Address')
+
+        expect(page).to_not have_content("Thank You For Ordering")
+        expect(page).to have_css("#errors")
+      end
     end
   end
-
 end

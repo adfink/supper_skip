@@ -26,14 +26,6 @@
     </tr>
   <% end %>
     <tr>
-      <td colspan="4">Sub-total: </td>
-      <td><%= number_to_currency(@subtotal) %></td>
-    </tr>
-    <tr>
-      <td colspan="4">Tax: </td>
-      <td><%= number_to_currency(@tax) %></td>
-    </tr>
-    <tr>
       <td colspan="4">Total: </td>
       <td><%= number_to_currency(@total) %></td>
     </tr>
@@ -41,15 +33,17 @@
 <% end %>
 </br>
 
-<% if current_user %>
-  <%= button_to "Checkout", new_user_online_order_path(current_user), method: :get %>
-<% else %>
-  <%= button_to "Checkout", login_path(origin: {destination: "checkout"}), method: :get %>
-<% end %>
-</br>
-
-<%= form_tag restaurants_path, method: :get do %>
-  <%= button_tag(:class => "btn btn-success btn-sm", :id => "continue_shopping_btn") do %>
-     Continue Shopping
+<div style="text-align: right;">
+  <% if current_user %>
+    <%= button_to "Checkout", new_user_online_order_path(current_user), method: :get %>
+  <% else %>
+    <%= button_to "Checkout", login_path, method: :get %>
   <% end %>
-<% end %>
+  </br>
+
+  <%= form_tag restaurants_path, method: :get do %>
+    <%= button_tag(:class => "btn btn-success btn-sm", :id => "continue_shopping_btn") do %>
+       Continue Shopping
+    <% end %>
+  <% end %>
+</div>

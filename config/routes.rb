@@ -2,13 +2,21 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  post 'twilio/voice' => 'twilio#voice'
+  post 'notifications/notify' => 'notifications#notify'
+  post '/twilio_notifications/notify' => 'notifications#notify'
+
+
   resources :restaurants do
     resources :items
     resources :orders
     resources :categories
+    resources :user_roles, only: [:new, :index, :create]
   end
 
+
   resources :addresses
+  resources :charges
 
   get 'code', to: 'welcome#code'
 

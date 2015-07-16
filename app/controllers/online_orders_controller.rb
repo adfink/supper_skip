@@ -14,8 +14,6 @@ class OnlineOrdersController < ApplicationController
     if cart.empty?
       redirect_to cart_path, notice: 'Please add items to your cart before checking out. Thank you!'
     else
-      @subtotal = Cart.subtotal(session)
-      @tax = Cart.tax(session)
       @total = Cart.total(session)
     end
   end

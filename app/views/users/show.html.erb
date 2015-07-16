@@ -1,0 +1,9 @@
+<h1>Hello, <%= @user.full_name %></h1>
+<ul>
+  <h2 style="text-align: center">Your restaurants:</h2>
+  <% @jobs.each do |job| %>
+    <li><%= job.name.capitalize %>... at <%= job.user_roles.where(user_id:@user.id).first.restaurant.name %></li>
+  <% end %>
+</ul>
+
+<a type="button" class="btn btn-default btn-sm" href="<%= edit_user_path(@user) %>">Edit Profile</a>
