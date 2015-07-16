@@ -37,6 +37,7 @@ RSpec.describe Order, :type => :model do
   end
 
   it 'can calculate a total' do
+    binding.pry
     expect(order.total).to eq(15)
   end
 end
