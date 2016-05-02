@@ -3,4 +3,4 @@
 
 Dinner Dash is a collaborative Ruby on Rails project I did while at Turing School. Dinner Dash is an online ordering application for a restaurant.  It features multi level user authentication/authorization, a content management portal, a sessions based cart, and an order management system.  My areas of focus for this project were - Ruby, Rails, Bootstrap, PostgreSQL and Capybara.
 
-Production Website - http://mountain-top-cafe.herokuapp.com/
+
